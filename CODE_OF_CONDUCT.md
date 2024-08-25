@@ -1,88 +1,88 @@
-# Citizen Code of Conduct
+# 公民行为准则
 
-## 1. Purpose
+## 1. 目的
 
-A primary goal of OpenBB Terminal is to be inclusive to the largest number of contributors, with the most varied and diverse backgrounds possible. As such, we are committed to providing a friendly, safe and welcoming environment for all, regardless of gender, sexual orientation, ability, ethnicity, socioeconomic status, and religion (or lack thereof).
+OpenBB终端的主要目标是包容尽可能多的参与者，拥有尽可能多样化和不同的背景。因此，我们致力于提供友好、安全和热情的环境，让所有人都能参与，无论性别、性取向、能力、种族、社会经济地位和宗教（或无宗教信仰）。
 
-This code of conduct outlines our expectations for all those who participate in our community, as well as the consequences for unacceptable behavior.
+本行为准则概述了我们对所有参与我们社区的人的期望，以及对不可接受行为的后果。
 
-We invite all those who participate in OpenBB Terminal to help us create safe and positive experiences for everyone.
+我们邀请所有参与OpenBB终端的人帮助我们为每个人创造安全和积极的体验。
 
-## 2. Open [Source/Culture/Tech] Citizenship
+## 2. 开放[源/文化/技术]公民意识
 
-A supplemental goal of this Code of Conduct is to increase open [source/culture/tech] citizenship by encouraging participants to recognize and strengthen the relationships between our actions and their effects on our community.
+本行为准则的另一个补充目标是通过鼓励参与者认识到我们的行为与对社区的影响之间的关系，并加强这种关系，来提高开放[源/文化/技术]公民意识。
 
-Communities mirror the societies in which they exist and positive action is essential to counteract the many forms of inequality and abuses of power that exist in society.
+社区反映了它们存在的社会，积极的行动对于抵消社会中存在的多种形式的不平等和权力滥用至关重要。
 
-If you see someone who is making an extra effort to ensure our community is welcoming, friendly, and encourages all participants to contribute to the fullest extent, we want to know.
+如果您看到有人特别努力确保我们的社区热情、友好，并鼓励所有参与者尽可能地贡献，我们希望知道。
 
-## 3. Expected Behavior
+## 3. 预期行为
 
-The following behaviors are expected and requested of all community members:
+所有社区成员都应遵守并被要求以下行为：
 
-- Participate in an authentic and active way. In doing so, you contribute to the health and longevity of this community.
-- Exercise consideration and respect in your speech and actions.
-- Attempt collaboration before conflict.
-- Refrain from demeaning, discriminatory, or harassing behavior and speech.
-- Be mindful of your surroundings and of your fellow participants. Alert community leaders if you notice a dangerous situation, someone in distress, or violations of this Code of Conduct, even if they seem inconsequential.
-- Remember that community event venues may be shared with members of the public; please be respectful to all patrons of these locations.
+- 以真实和积极的方式参与。通过这样做，您有助于社区的健康和持久。
+- 在您的言语和行动中行使考虑和尊重。
+- 在冲突之前尝试合作。
+- 避免贬低、歧视或骚扰的行为和言语。
+- 注意您周围的环境和您的同伴参与者。如果您注意到危险情况、有人处于困境，或违反本行为准则的行为，即使它们看起来不重要，也请提醒社区领导者。
+- 记住社区活动场所可能与公众成员共享；请尊重这些场所的所有顾客。
 
-## 4. Unacceptable Behavior
+## 4. 不可接受的行为
 
-The following behaviors are considered harassment and are unacceptable within our community:
+以下行为被视为骚扰，在我们的社区内是不可接受的：
 
-- Violence, threats of violence or violent language directed against another person.
-- Sexist, racist, homophobic, transphobic, ableist or otherwise discriminatory jokes and language.
-- Posting or displaying sexually explicit or violent material.
-- Posting or threatening to post other people's personally identifying information ("doxing").
-- Personal insults, particularly those related to gender, sexual orientation, race, religion, or disability.
-- Inappropriate photography or recording.
-- Inappropriate physical contact. You should have someone's consent before touching them.
-- Unwelcome sexual attention. This includes, sexualized comments or jokes; inappropriate touching, groping, and unwelcomed sexual advances.
-- Deliberate intimidation, stalking or following (online or in person).
-- Advocating for, or encouraging, any of the above behavior.
-- Sustained disruption of community events, including talks and presentations.
+- 对他人使用暴力、威胁使用暴力或使用暴力语言。
+- 性别歧视、种族歧视、同性恋歧视、跨性别歧视、能力歧视或其他歧视性的笑话和语言。
+- 张贴或展示色情或暴力材料。
+- 张贴或威胁张贴他人的个人识别信息（“人肉搜索”）。
+- 个人侮辱，特别是与性别、性取向、种族、宗教或残疾有关的。
+- 不适当的摄影或录音。
+- 不适当的身体接触。在触摸某人之前，您应该得到他们的同意。
+- 不受欢迎的性关注。这包括性化评论或笑话；不适当的触摸、摸索和不受欢迎的性进步。
+- 故意恐吓、跟踪或跟随（在线或当面）。
+- 提倡或鼓励上述任何行为。
+- 持续干扰社区活动，包括演讲和演示。
 
-## 6. Consequences of Unacceptable Behavior
+## 6. 不可接受行为的后果
 
-Unacceptable behavior from any community member, including sponsors and those with decision-making authority, will not be tolerated.
+任何社区成员的不可接受行为，包括赞助商和具有决策权的人，都是不会被容忍的。
 
-Anyone asked to stop unacceptable behavior is expected to comply immediately.
+被要求停止不可接受行为的任何人应立即遵守。
 
-If a community member engages in unacceptable behavior, the community organizers may take any action they deem appropriate, up to and including a temporary ban or permanent expulsion from the community without warning (and without refund in the case of a paid event).
+如果社区成员从事不可接受的行为，社区组织者可能会采取他们认为适当的任何行动，包括暂时禁止或在不警告的情况下永久驱逐出社区（如果是付费活动，则不退款）。
 
-## 7. Reporting Guidelines
+## 7. 报告指南
 
-If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a community organizer as soon as possible. dro.lopes@campus.fct.unl.pt.
+如果您是不可接受行为的对象或目击者，或者有任何其他关注，请尽快通知社区组织者。dro.lopes@campus.fct.unl.pt。
 
-[Reporting guidelines](https://github.com/OpenBB-finance/OpenBB)
+[报告指南](https://github.com/awesome-generative-ai/OpenBB)
 
-Additionally, community organizers are available to help community members engage with local law enforcement or to otherwise help those experiencing unacceptable behavior feel safe. In the context of in-person events, organizers will also provide escorts as desired by the person experiencing distress.
+此外，社区组织者可帮助社区成员与当地执法部门接触，或以其他方式帮助那些经历不可接受行为的人感到安全。在面对面活动的背景下，组织者还将根据经历困扰的人的愿望提供护送。
 
-## 8. Addressing Grievances
+## 8. 解决不满
 
-If you feel you have been falsely or unfairly accused of violating this Code of Conduct, you should notify OpenBBTerminal with a concise description of your grievance. Your grievance will be handled in accordance with our existing governing policies.
+如果您觉得您被错误或不公平地指控违反了本行为准则，您应该通知OpenBBTerminal，并简要描述您的不满。您的不满将根据我们现有的管理政策进行处理。
 
-## 9. Scope
+## 9. 范围
 
-We expect all community participants (contributors, paid or otherwise; sponsors; and other guests) to abide by this Code of Conduct in all community venues--online and in-person--as well as in all one-on-one communications pertaining to community business.
+我们期望所有社区参与者（贡献者、付费或未付费；赞助商；和其他客人）在所有社区场所——在线和面对面——以及所有与社区业务相关的一对一通信中遵守本行为准则。
 
-This code of conduct and its related procedures also applies to unacceptable behavior occurring outside the scope of community activities when such behavior has the potential to adversely affect the safety and well-being of community members.
+本行为准则及其相关程序也适用于在社区活动范围之外发生的不可接受行为，当这种行为可能对社区成员的安全和福祉产生不利影响时。
 
-## 10. Contact info
+## 10. 联系信息
 
 dro.lopes@campus.fct.unl.pt
 
-## 11. License and attribution
+## 11. 许可和归属
 
-The Citizen Code of Conduct is distributed by [Stumptown Syndicate](http://stumptownsyndicate.org) under a [Creative Commons Attribution-ShareAlike license](http://creativecommons.org/licenses/by-sa/3.0/).
+公民行为准则由[Stumptown Syndicate](http://stumptownsyndicate.org)在[知识共享署名-相同方式共享许可](http://creativecommons.org/licenses/by-sa/3.0/)下分发。
 
-Portions of text derived from the [Django Code of Conduct](https://www.djangoproject.com/conduct/) and the [Geek Feminism Anti-Harassment Policy](http://geekfeminism.wikia.com/wiki/Conference_anti-harassment/Policy).
+文本的部分内容源自[Django行为准则](https://www.djangoproject.com/conduct/)和[Geek Feminism反骚扰政策](http://geekfeminism.wikia.com/wiki/Conference_anti-harassment/Policy)。
 
-_Revision 2.3. Posted 6 March 2017._
+_修订2.3. 2017年3月6日发布。_
 
-_Revision 2.2. Posted 4 February 2016._
+_修订2.2. 2016年2月4日发布。_
 
-_Revision 2.1. Posted 23 June 2014._
+_修订2.1. 2014年6月23日发布。_
 
-_Revision 2.0, adopted by the [Stumptown Syndicate](http://stumptownsyndicate.org) board on 10 January 2013. Posted 17 March 2013._
+_修订2.0，由[Stumptown Syndicate](http://stumptownsyndicate.org)董事会于2013年1月10日采纳。2013年3月17日发布。_

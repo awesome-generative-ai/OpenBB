@@ -1,57 +1,57 @@
-# OpenBB Platform - Core
+# OpenBB平台 - 核心组件
 
-## Overview
+## 概览
 
-The Core extension serves as the foundational component of the OpenBB Platform. It encapsulates essential functionalities and serves as an infrastructural base for other extensions. This extension is vital for maintaining the integrity and standardization of the platform.
+核心扩展是OpenBB平台的基础组件。它封装了必要的功能，并为其他扩展提供了基础设施基础。此扩展对于维护平台的完整性和标准化至关重要。
 
-## Key Features
+## 主要特性
 
-- **Standardized Data Model** (`Data` Class): A flexible and dynamic Pydantic model capable of handling various data structures.
-- **Standardized Query Params** (`QueryParams` Class): A Pydantic model for handling querying to different providers.
-- **Dynamic Field Support**: Enables handling of undefined fields, providing versatility in data processing.
-- **Robust Data Validation**: Utilizes Pydantic's validation features to ensure data integrity.
-- **API Routing Mechanism** (`Router` Class): Simplifies the process of defining API routes and endpoints - out of the box Python and Web endpoints.
+- **标准化数据模型** (`Data` 类): 一个灵活且动态的Pydantic模型，能够处理各种数据结构。
+- **标准化查询参数** (`QueryParams` 类): 一个用于处理不同提供商查询的Pydantic模型。
+- **动态字段支持**: 能够处理未定义字段，为数据处理提供多样性。
+- **强大的数据验证**: 利用Pydantic的验证特性确保数据完整性。
+- **API路由机制** (`Router` 类): 简化定义API路由和端点的过程 - 即开即用的Python和Web端点。
 
-## Getting Started
+## 开始使用
 
-### Prerequisites
+### 先决条件
 
-- Python 3.8 or higher.
-- Familiarity with FastAPI and Pydantic.
+- Python 3.8或更高版本。
+- 对FastAPI和Pydantic的熟悉。
 
-### Installation
+### 安装
 
-Installing through pip:
+通过pip安装：
 
 ```bash
 pip install openbb-core
 ```
 
-> Note that, the openbb-core is an infrastructural component of the OpenBB Platform. It is not intended to be used as a standalone package.
+> 注意，openbb-core是OpenBB平台的基础设施组件。它不打算作为独立的包使用。
 
-### Usage
+### 使用
 
-The Core extension is used as the basis for building and integrating new data sources, providers, and extensions into the OpenBB Platform. It provides the necessary classes and structures for standardizing and handling data.
+核心扩展用作构建和集成新的数据源、提供商和扩展到OpenBB平台的基础。它提供了标准化和处理数据所需的类和结构。
 
-### Contributing
+### 贡献
 
-We welcome contributions! If you're looking to contribute, please:
+我们欢迎贡献！如果你想贡献，请：
 
-- Follow the existing coding standards and conventions.
-- Write clear, documented code.
-- Ensure your code does not negatively impact performance.
-- Test your contributions thoroughly.
+- 遵循现有的编码标准和约定。
+- 编写清晰、有文档的代码。
+- 确保你的代码不会对性能产生负面影响。
+- 彻底测试你的贡献。
 
-Please refer to our [Contributing Guidelines](https://docs.openbb.co/platform/developer_guide/contributing).
+请参阅我们的[贡献指南](https://docs.openbb.co/platform/developer_guide/contributing)。
 
-### Collaboration
+### 协作
 
-Engage with the development team and the community. Be open to feedback and collaborative discussions.
+与开发团队和社区进行互动。对反馈和协作讨论持开放态度。
 
-### Support
+### 支持
 
-For support, questions, or more information, please visit [OpenBB Platform Documentation](https://docs.openbb.co/platform).
+如需支持、问题或更多信息，请访问[OpenBB平台文档](https://docs.openbb.co/platform)。
 
-### License
+### 许可证
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/OpenBB-finance/OpenBB/blob/main/LICENSE) file for details.
+本项目根据MIT许可证获得许可 - 请参阅[LICENSE.md](https://github.com/awesome-generative-ai/OpenBB/blob/main/LICENSE) 文件了解详细信息。

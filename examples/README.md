@@ -1,92 +1,92 @@
-# Jupyter Notebook Examples Using the OpenBB Platform
+# 使用OpenBB平台的Jupyter笔记本示例
 
-This folder is a collection of example notebooks that demonstrate some of the ways to get started with using the OpenBB Platform.  To run them, ensure that the active kernel selected is the same Python virtual environment where OpenBB was installed.
+这个文件夹是一系列示例笔记本的集合，它们展示了如何开始使用OpenBB平台的一些方法。要运行它们，请确保所选的活跃内核与安装OpenBB的Python虚拟环境相同。
 
-## Table of Contents
+## 目录
 
 ### googleColab
 
-This notebook installs the OpenBB Platform in a Google Colab environment with examples for:
+这个笔记本在Google Colab环境中安装了OpenBB平台，并提供了以下示例：
 
-- Logging into OpenBB Hub
-- Setting the output preference
-- Fetching options and company fundamentals data
-- Creating bar chart visualizations
+- 登录OpenBB Hub
+- 设置输出偏好
+- 获取期权和公司基本面数据
+- 创建条形图可视化
 
 ### findSymbols
 
-This notebook provides an introduction to discovering, finding, and searching ticker symbols.
+这个笔记本提供了一个介绍，关于发现、查找和搜索股票代码。
 
-- Search
-- Find company and institutional filings
-- Screen stocks by region and metrics
+- 搜索
+- 查找公司和机构文件
+- 按地区和指标筛选股票
 
 ### loadHistoricalPriceData
 
-This notebook walks through collecting historical price data, at different intervals, using a variety of sources.
+这个笔记本详细介绍了如何使用多种来源收集不同间隔的历史价格数据。
 
-- Loading data with different intervals, and changing sources
-- A brief explanation of ticker symbology
-- Resampling a time series index
-- Some differences between providers, and comparing outputs
+- 使用不同间隔加载数据，并更改来源
+- 对股票代码符号学的简要解释
+- 重新采样时间序列索引
+- 各提供商之间的一些差异，以及比较输出结果
 
 ### financialStatements
 
-This set of examples introduces financial statements in the OpenBB Platform and compares the free cash flow yields of large-cap retail industry companies.
+这组示例介绍了OpenBB平台中的财务报表，并比较了大型零售行业公司的自由现金流收益率。
 
-- Financial statements
-- What to expect with data from different sources
-- Financial attributes
-- Ratios and other metrics
+- 财务报表
+- 来自不同来源数据的预期
+- 财务属性
+- 比率和其他指标
 
 ### copperToGoldRatio
 
-This notebook explains how to calculate and plot the Copper-to-Gold ratio.
+这个笔记本解释了如何计算和绘制铜金比率。
 
-- Loading historical front-month futures prices.
-- Getting the historical series from FRED for the 10-year constant maturity US treasury bill.
-- Performing basic DataFrame operations.
-- Creating charts with Plotly Graph Objects.
+- 加载历史最前线月期货价格。
+- 从FRED获取10年期美国国债的恒定到期历史系列。
+- 执行基本的数据帧操作。
+- 使用Plotly图形对象创建图表。
 
 ### openbbPlatformAsLLMTools
 
-This notebook shows you how you can use OpenbB Platform as functions in an LLM by leveraging function calling.
+这个笔记本展示了如何通过利用函数调用，将OpenBB平台用作LLM中的函数。
 
-- Create an LLM tool from an OpenBB Platform function
-- Convert all OpenBB Platform functions to LLM tools
-- Build a basic Langchain agent that can utilize function calling
-- Run the agent
+- 从OpenBB平台函数创建LLM工具
+- 将所有OpenBB平台函数转换为LLM工具
+- 构建一个可以利用函数调用的基本Langchain代理
+- 运行代理
 
 ### usdLiquidityIndex
 
-This notebook demonstrates how to query the Federal Reserve Economic Database and recreate the USD Liquidity Index.
+这个笔记本演示了如何查询联邦储备经济数据库并重新创建美元流动性指数。
 
-- Search FRED for series IDs.
-- Load multiple series as a single call.
-- Unpacking the data response from the FRED query.
-- Perform arithmetic operations on a DataFrame.
-- Normalization methods for a series or DataFrame.
-- Simple processes for creating charts.
+- 在FRED中搜索系列ID。
+- 作为单个调用加载多个系列。
+- 从FRED查询中解包数据响应。
+- 对数据帧执行算术运算。
+- 系列或数据帧的标准化方法。
+- 创建图表的简单流程。
 
 ### impliedEarningsMove
 
-This notebook demonstrates how to calculate the implied earnings move using options prices from free sources.
+这个笔记本演示了如何使用免费来源的期权价格计算预期收益变动。
 
-- Get upcoming earnings calendar.
-- Fetch options chains data.
-- Get the last price of the underlying stock.
-- Find the nearest call and put strikes to the last price of the stock.
-- Calculate the implied daily move using the price of a straddle.
+- 获取即将到来的收益日历。
+- 获取期权链条数据。
+- 获取基础股票的最后价格。
+- 找到最接近股票最后价格的看涨和看跌期权的行权价。
+- 使用跨式期权的价格计算预期的每日变动。
 
 ### streamlit/news
 
-This is an example Streamlit dashboard for news headlines with data from Biztoc, Benzinga, FMP, Intrinio, and Tiingo.
+这是一个示例Streamlit仪表板，用于显示来自Biztoc、Benzinga、FMP、Intrinio和Tiingo的新闻头条。
 
 :::warning
-At least one API key is required. You can get a free Biztoc API key [here](https://rapidapi.com/thma/api/biztoc)
+至少需要一个API密钥。您可以在[这里](https://rapidapi.com/thma/api/biztoc)获取免费的Biztoc API密钥
 :::
 
-To run, copy the file to your system, open a terminal, navigate to where the file is, and with your `obb` Python environment active, enter:
+要运行，请将文件复制到您的系统，在终端中打开，导航到文件所在的位置，并在激活了`obb` Python环境的情况下，输入：
 
 ```
 pip install streamlit

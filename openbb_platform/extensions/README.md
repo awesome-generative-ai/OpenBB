@@ -1,3 +1,3 @@
-# Extensions
+# 扩展
 
-In this folder you can find the extensions that were created or are supported by OpenBB.
+在这个文件夹中，您可以找到由OpenBB创建或支持的扩展。

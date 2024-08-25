@@ -1,58 +1,58 @@
-# OpenBB Platform
+# OpenBB平台
 
-[![Downloads](https://static.pepy.tech/badge/openbb)](https://pepy.tech/project/openbb)
-[![LatestRelease](https://badge.fury.io/py/openbb.svg)](https://github.com/OpenBB-finance/OpenBB)
+[![Downloads](https://static.pepy.tech/badge/openbb)](https://pepy.tech/project/openbb) 
+[![LatestRelease](https://badge.fury.io/py/openbb.svg)](https://github.com/awesome-generative-ai/OpenBB) 
 
-| OpenBB is committed to build the future of investment research by focusing on an open source infrastructure accessible to everyone, everywhere. |
+| OpenBB致力于通过专注于每个人都能访问的开源基础设施来构建投资研究的未来。 |
 | :---------------------------------------------------------------------------------------------------------------------------------------------: |
-|              ![OpenBBLogo](https://user-images.githubusercontent.com/25267873/218899768-1f0964b8-326c-4f35-af6f-ea0946ac970b.png)               |
-|                                                 Check our website at [openbb.co](www.openbb.co)                                                 |
+|              ![OpenBBLogo](https://user-images.githubusercontent.com/25267873/218899768-1f0964b8-326c-4f35-af6f-ea0946ac970b.png)                |
+|                                                 请访问我们的网站 [openbb.co](www.openbb.co)                                                 |
 
-## Overview
+## 概览
 
-The OpenBB Platform provides a convenient way to access raw financial data from multiple data providers. The package comes with a ready to use REST API - this allows developers from any language to easily create applications on top of OpenBB Platform.
+OpenBB平台提供了一种方便的方式来访问多个数据提供商提供的原始财务数据。该软件包附带了一个现成的REST API - 这允许任何语言的开发者都能轻松地在OpenBB平台上创建应用程序。
 
-Please find the complete documentation at [docs.openbb.co](https://docs.openbb.co/platform).
+请在 [docs.openbb.co](https://docs.openbb.co/platform) 查看完整文档。
 
-## Installation
+## 安装
 
-The command below provides access to the core functionalities behind the OpenBB Platform.
+下面的命令提供了访问OpenBB平台核心功能的途径。
 
 ```bash
 pip install openbb
 ```
 
-This will install the following data providers:
+这将安装以下数据提供商：
 
-| Extension Name          | Description                                                               | Installation Command                | Minimum Subscription Type Required |
-| ----------------------- | ------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------- |
-| openbb-benzinga         | [Benzinga](https://www.benzinga.com/apis/en-ca/) data connector           | pip install openbb-benzinga         | Paid                               |
-| openbb-federal-reserve  | [FederalReserve](https://www.federalreserve.gov/data.html) data connector | pip install openbb-federal-reserve  | Free                               |
-| openbb-fmp              | [FMP](https://site.financialmodelingprep.com/developer/) data connector   | pip install openbb-fmp              | Free                               |
-| openbb-fred             | [FRED](https://fred.stlouisfed.org/) data connector                       | pip install openbb-fred             | Free                               |
-| openbb-intrinio         | [Intrinio](https://intrinio.com/pricing) data connector                   | pip install openbb-intrinio         | Paid                               |
-| openbb-oecd             | [OECD](https://data.oecd.org/) data connector                             | pip install openbb-oecd             | Free                               |
-| openbb-polygon          | [Polygon](https://polygon.io/) data connector                             | pip install openbb-polygon          | Free                               |
-| openbb-sec              | [SEC](https://www.sec.gov/edgar/sec-api-documentation) data connector     | pip install openbb-sec              | Free                               |
-| openbb-tiingo           | [Tiingo](https://www.tiingo.com/about/pricing) data connector             | pip install openbb-tiingo           | Free                               |
-| openbb-tradingeconomics | [TradingEconomics](https://tradingeconomics.com/api) data connector       | pip install openbb-tradingeconomics | Paid                               |
-| openbb-yahoo-finance    | [Yahoo Finance](https://finance.yahoo.com/) data connector                | pip install openbb-yfinance         | Free                               |
+| 扩展名称                | 描述                                                                       | 安装命令                                   | 需要的最低订阅类型 |
+| ----------------------- | ------------------------------------------------------------------------- | ------------------------------------------ | ------------------ |
+| openbb-benzinga         | [Benzinga](https://www.benzinga.com/apis/en-ca/) 数据连接器                 | pip install openbb-benzinga                 | 付费               |
+| openbb-federal-reserve  | [FederalReserve](https://www.federalreserve.gov/data.htm) 数据连接器         | pip install openbb-federal-reserve          | 免费               |
+| openbb-fmp              | [FMP](https://site.financialmodelingprep.com/developer/) 数据连接器           | pip install openbb-fmp                      | 免费               |
+| openbb-fred             | [FRED](https://fred.stlouisfed.org/) 数据连接器                               | pip install openbb-fred                      | 免费               |
+| openbb-intrinio         | [Intrinio](https://intrinio.com/pricing) 数据连接器                           | pip install openbb-intrinio                 | 付费               |
+| openbb-oecd             | [OECD](https://data.oecd.org/) 数据连接器                                     | pip install openbb-oecd                     | 免费               |
+| openbb-polygon          | [Polygon](https://polygon.io/) 数据连接器                                     | pip install openbb-polygon                  | 免费               |
+| openbb-sec              | [SEC](https://www.sec.gov/edgar/sec-api-documentation) 数据连接器             | pip install openbb-sec                      | 免费               |
+| openbb-tiingo           | [Tiingo](https://www.tiingo.com/about/pricing) 数据连接器                     | pip install openbb-tiingo                   | 免费               |
+| openbb-tradingeconomics | [TradingEconomics](https://tradingeconomics.com/api) 数据连接器               | pip install openbb-tradingeconomics         | 付费               |
+| openbb-yahoo-finance    | [Yahoo Finance](https://finance.yahoo.com/) 数据连接器                          | pip install openbb-yfinance                 | 免费               |
 
-To install extensions that expand the core functionalities specify the extension name or use `all` to install all.
+要安装扩展核心功能，请指定扩展名称或使用 `all` 来安装所有扩展。
 
 ```bash
-# Install a single extension, e.g. openbb-charting and yahoo finance
+# 安装单个扩展，例如 openbb-charting 和 yahoo finance
 pip install openbb[charting]
 pip install openbb-yfinance
 ```
 
-Alternatively, you can install all extensions at once.
+或者，你可以一次性安装所有扩展。
 
 ```bash
 pip install openbb[all]
 ```
 
-> Note: These instruction are specific to v4. For installation instructions and documentation for v3 go to our [website](https://docs.openbb.co/sdk).
+> 参考：请访问我们的 [网站](https://docs.openbb.co/platform/installation#installation)。
 
 ## Python
 
@@ -72,42 +72,42 @@ date                                ...
 [5 rows x 12 columns]
 ```
 
-## API keys
+## API密钥
 
-To fully leverage the OpenBB Platform you need to get some API keys to connect with data providers. Here are the 3 options on where to set them:
+要充分利用OpenBB平台，您需要获取一些API密钥以连接数据提供商。以下是设置它们的3个选项：
 
 1. OpenBB Hub
-2. Runtime
-3. Local file
+2. 运行时
+3. 本地文件
 
 ### 1. OpenBB Hub
 
-Set your keys at [OpenBB Hub](https://my.openbb.co/app/platform/credentials) and get your personal access token from <https://my.openbb.co/app/platform/pat> to connect with your account.
+在 [OpenBB Hub](https://my.openbb.co/app/platform/credentials) 设置您的密钥，并从 <https://my.openbb.co/app/platform/pat> 获取您的个人访问令牌以连接您的账户。
 
 ```python
 >>> from openbb import obb
 >>> openbb.account.login(pat="OPENBB_PAT")
 
->>> # Persist changes in OpenBB Hub
+>>> # 在OpenBB Hub中持久化更改
 >>> obb.account.save()
 ```
 
-### 2. Runtime
+### 2. 运行时
 
 ```python
 >>> from openbb import obb
 >>> obb.user.credentials.fmp_api_key = "REPLACE_ME"
 >>> obb.user.credentials.polygon_api_key = "REPLACE_ME"
 
->>> # Persist changes in ~/.openbb_platform/user_settings.json
+>>> # 在 ~/.openbb_platform/user_settings.json 中持久化更改
 >>> obb.account.save()
 ```
 
-### 3. Local file
+### 3. 本地文件
 
-You can specify the keys directly in the `~/.openbb_platform/user_settings.json` file.
+您可以直接在 `~/.openbb_platform/user_settings.json` 文件中指定密钥。
 
-Populate this file with the following template and replace the values with your keys:
+用以下模板填充此文件，并将值替换为您的密钥：
 
 ```json
 {
@@ -122,25 +122,25 @@ Populate this file with the following template and replace the values with your 
 
 ## REST API
 
-The OpenBB Platform comes with a ready to use REST API built with FastAPI. Start the application using this command:
+OpenBB平台附带了一个使用FastAPI构建的现成的REST API。使用此命令启动应用程序：
 
 ```bash
 uvicorn openbb_core.api.rest_api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-Check `openbb-core` [README](https://pypi.org/project/openbb-core/) for additional info.
+查看 `openbb-core` [README](https://pypi.org/project/openbb-core/) 以获取更多信息。
 
-## Install for development
+## 开发安装
 
-To develop the OpenBB Platform you need to have the following:
+要开发OpenBB平台，您需要具备以下条件：
 
 - Git
-- Python 3.8 or higher
-- Virtual Environment with `poetry` and `toml` packages installed
-  - To install these packages activate your virtual environment and run `pip install poetry toml`
+- Python 3.8或更高版本
+- 安装了 `poetry` 和 `toml` 包的虚拟环境
+  - 要安装这些包，请激活您的虚拟环境并运行 `pip install poetry toml`
 
-How to install the platform in editable mode?
+如何以可编辑模式安装平台？
 
-  1. Activate your virtual environment
-  1. Navigate into the `openbb_platform` folder
-  1. Run `python dev_install.py` to install the packages in editable mode
+  1. 激活您的虚拟环境
+  2. 导航到 `openbb_platform` 文件夹
+  3. 运行 `python dev_install.py` 以在可编辑模式下安装包

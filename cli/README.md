@@ -1,59 +1,58 @@
-# OpenBB Platform CLI
+# OpenBB平台命令行界面（CLI）
 
-[![Downloads](https://static.pepy.tech/badge/openbb)](https://pepy.tech/project/openbb)
-[![LatestRelease](https://badge.fury.io/py/openbb.svg)](https://github.com/OpenBB-finance/OpenBB)
+[![Downloads](https://static.pepy.tech/badge/openbb)](https://pepy.tech/project/openbb) 
+[![LatestRelease](https://badge.fury.io/py/openbb.svg)](https://github.com/OpenBB-finance/OpenBB) 
 
-| OpenBB is committed to build the future of investment research by focusing on an open source infrastructure accessible to everyone, everywhere. |
+| OpenBB致力于通过专注于每个人都能访问的开源基础设施来构建投资研究的未来。 |
 | :---------------------------------------------------------------------------------------------------------------------------------------------: |
-|              ![OpenBBLogo](https://user-images.githubusercontent.com/25267873/218899768-1f0964b8-326c-4f35-af6f-ea0946ac970b.png)               |
-|                                                 Check our website at [openbb.co](www.openbb.co)                                                 |
+|              ![OpenBBLogo](https://user-images.githubusercontent.com/25267873/218899768-1f0964b8-326c-4f35-af6f-ea0946ac970b.png)                |
+|                                                 请访问我们的网站 [openbb.co](www.openbb.co)                                                 |
 
-## Overview
+## 概览
 
-The OpenBB Platform CLI is a command line interface that wraps [OpenBB Platform](https://docs.openbb.co/platform).
+OpenBB平台命令行界面（CLI）是一个包装了[OpenBB平台](https://docs.openbb.co/platform)的命令行界面。
 
-It offers a convenient way to interact with the OpenBB Platform and its extensions, as well as automate data collection via OpenBB Routine Scripts.
+它提供了一种方便的方式来与OpenBB平台及其扩展进行交互，并且还可以自动化通过OpenBB常规脚本收集数据。
 
-Find the most complete documentation, examples, and usage guides for the OpenBB Platform CLI [here](https://docs.openbb.co/cli).
+在[这里](https://docs.openbb.co/cli)找到OpenBB平台CLI的最完整文档、示例和使用指南。
 
-## Installation
+## 安装
 
-The command below provides access to the all the available OpenBB extensions behind the OpenBB Platform, find the complete list [here](https://my.openbb.co/app/platform/extensions).
+下面的命令提供了访问OpenBB平台背后的所有可用OpenBB扩展的途径，完整的列表在[这里](https://my.openbb.co/app/platform/extensions)。
 
 ```bash
 pip install openbb-cli
 ```
 
-> Note: Find the most complete installation hints and tips [here](https://docs.openbb.co/cli/installation).
+> 注意：在[这里](https://docs.openbb.co/cli/installation)找到最完整的安装提示和技巧。
 
-After the installation is complete, you can deploy the OpenBB Platform CLI by running the following command:
+安装完成后，您可以通过运行以下命令部署OpenBB平台CLI：
 
 ```bash
 openbb
 ```
 
-Which should result in the following output:
+这应该会得到以下输出：
+![image](https://github.com/OpenBB-finance/OpenBB/assets/48914296/f606bb6e-fa00-4fc8-bad2-8269bb4fc38e) 
 
-![image](https://github.com/OpenBB-finance/OpenBB/assets/48914296/f606bb6e-fa00-4fc8-bad2-8269bb4fc38e)
+## API密钥
 
-## API keys
-
-To fully leverage the OpenBB Platform you need to get some API keys to connect with data providers. Here are the 3 options on where to set them:
+要充分利用OpenBB平台，您需要获取一些API密钥以连接数据提供商。以下是设置它们的3个选项：
 
 1. OpenBB Hub
-2. Local file
+2. 本地文件
 
 ### 1. OpenBB Hub
 
-Set your keys at [OpenBB Hub](https://my.openbb.co/app/platform/credentials) and get your personal access token from <https://my.openbb.co/app/platform/pat> to connect with your account.
+在[OpenBB Hub](https://my.openbb.co/app/platform/credentials)设置您的密钥，并从<https://my.openbb.co/app/platform/pat>获取您的个人访问令牌以连接您的账户。
 
-> Once you log in, on the Platform CLI (through the `/account` menu, all your credentials will be in sync with the OpenBB Hub.)
+> 一旦您登录，通过平台CLI（通过`/account`菜单），您的所有凭证将与OpenBB Hub同步。
 
-### 2. Local file
+### 2. 本地文件
 
-You can specify the keys directly in the `~/.openbb_platform/user_settings.json` file.
+您可以直接在`~/.openbb_platform/user_settings.json`文件中指定密钥。
 
-Populate this file with the following template and replace the values with your keys:
+用以下模板填充此文件，并将值替换为您的密钥：
 
 ```json
 {

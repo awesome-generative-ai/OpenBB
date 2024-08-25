@@ -1,61 +1,61 @@
-# OpenBB Charting extension
+# OpenBB图表扩展
 
-This extension provides a charting library for OpenBB Platform.
+该扩展为OpenBB平台提供了一个图表库。
 
-The library includes:
+该库包括：
 
-- a charting infrastructure based on Plotly
-- a set of charting components
-- prebuilt charts for a set of commands that are built-in OpenBB extensions
+- 基于Plotly的图表基础设施
+- 一组图表组件
+- 为内置OpenBB扩展构建的一组预构建图表
 
 >[!NOTE]
-> The charting library is an `OBBject` extension which means you'll have the functionality it exposes on every command result.
+> 图表库是一个`OBBject`扩展，这意味着您将在每个命令结果上拥有它公开的功能。
 
-## Installation
+## 安装
 
-To install the extension, run the following command in this folder:
+要安装该扩展，请在此文件夹中运行以下命令：
 
 ```bash
 pip install openbb-charting
 ```
 
-## PyWry dependency on Linux
+## Linux上的PyWry依赖性
 
-The PyWry dependency handles the display of interactive charts and tables in a separate window. It is installed automatically with the OpenBB Charting extension.
+PyWry依赖性处理在单独窗口中显示交互式图表和表格。它与OpenBB图表扩展一起自动安装。
 
-When using Linux distributions, the PyWry dependency requires certain dependencies to be installed first.
+在使用Linux发行版时，PyWry依赖性需要首先安装某些依赖项。
 
-- Debian-based / Ubuntu / Mint:
+- 基于Debian/Ubuntu/Mint的系统：
 `sudo apt install libwebkit2gtk-4.0-dev`
 
-- Arch Linux / Manjaro:
+- Arch Linux/Manjaro：
 `sudo pacman -S webkit2gtk`
 
-- Fedora:
+- Fedora：
 `sudo dnf install gtk3-devel webkit2gtk3-devel`
 
-## Usage
+## 使用方法
 
-To use the extension, run any of the OpenBB Platform endpoints with the `chart` argument set to `True`.
+要使用该扩展，请运行任何OpenBB平台端点，并设置`chart`参数为`True`。
 
-Here's an example of how it would look like in a python interface:
+以下是在Python接口中可能看起来的样子：
 
 ```python
 from openbb import obb
 equity_data = obb.equity.price.historical(symbol="TSLA", chart=True)
 ```
 
-This results in a `OBBject` object containing a `chart` attribute, which contains Plotly JSON data.
+这将生成一个包含`chart`属性的`OBBject`对象，其中包含Plotly JSON数据。
 
-In order to display the chart, you need to call the `show()` method:
+为了显示图表，您需要调用`show()`方法：
 
 ```python
 equity_data.show()
 ```
 
-> Note: The `show()` method currently works either in a Jupyter Notebook or in a standalone python script with a PyWry based backend properly initialized.
+> 注意：`show()`方法当前只能在Jupyter Notebook中或在正确初始化了基于PyWry的后端的独立Python脚本中工作。
 
-Alternatively, you can use the fact that the `openbb-charting` is an `OBBject` extension and use its available methods.
+或者，您可以利用`openbb-charting`是一个`OBBject`扩展，并使用其可用的方法。
 
 ```python
 from openbb import obb
@@ -63,32 +63,31 @@ res = obb.equity.price.historical("AAPL")
 res.charting.show()
 ```
 
-The above code will produce the same effect as the previous example.
+上述代码将产生与前一个示例相同的效果。
 
-### Discovering available charts
+### 发现可用的图表
 
-Not all the endpoints are currently supported by the charting extension. To discover which endpoints are supported, you can run the following command:
+并非所有端点当前都支持图表扩展。要发现哪些端点受支持，您可以运行以下命令：
 
 ```python
 from openbb_charting import Charting
 Charting.functions()
 ```
 
-### Using the `to_chart` method
+### 使用`to_chart`方法
 
-The `to_chart` function should be taken as an advanced feature, as it requires the user to have a good understanding of the charting extension and the `OpenBBFigure` class.
+`to_chart`函数应被视为高级功能，因为它要求用户对图表扩展和`OpenBBFigure`类有良好的理解。
 
-The user can use any number of `**kwargs` that will be passed to the `PlotlyTA` class in order to build custom visualizations with custom indicators and similar.
+用户可以使用任何数量的`**kwargs`，这些将传递给`PlotlyTA`类，以便使用自定义指标构建自定义可视化。
 
-> Note that, this method will only work to some limited extent with data that is not standardized.
-> Also, it is currently designed only to handle time series (OHLCV) data.
+> 注意，此方法在一定程度上只能与非标准化数据一起有限工作。
+> 另外，它目前仅设计为处理时间序列(OHLCV)数据。
 
-Example usage:
+示例用法：
 
-- Plotting a time series with TA indicators
+- 绘制带有TA指标的时间序列
 
   ```python
-
     from openbb import obb
     res = obb.equity.price.historical("AAPL")
 
@@ -102,34 +101,31 @@ Example usage:
         ema=dict(length=[20,30,50]),
     )
     res.charting.to_chart(**{"indicators": indicators})
-
   ```
 
-- Get all the available indicators
+- 获取所有可用的指标
 
     ```python
-
-    # if you have a command result already
+    # 如果您已经有了命令结果
     res.charting.indicators
 
-    # or if you want to know in standalone fashion
+    # 或者如果您想以独立的方式知道
     from openbb_charting import Charting
     Charting.indicators()
-
     ```
 
-## Add a visualization to an existing Platform command
+## 向现有平台命令添加可视化
 
-To add a visualization to an existing command, you'll need to add a `poetry` plugin to your `pyproject.toml` file. The syntax should be the following:
+要向现有命令添加可视化，您需要在`pyproject.toml`文件中添加一个`poetry`插件。语法应该是以下内容：
 
 ```toml
 [tool.poetry.plugins."openbb_charting_extension"]
 my_extension = "openbb_my_extension.my_extension_views:MyExtensionViews"
 ```
 
-Where the `openbb_charting_extension` is **mandatory**, otherwise the charting extension won't be able to find the visualization.
+其中`openbb_charting_extension`是**强制性的**，否则图表扩展将无法找到可视化。
 
-And the suggested structure for the `my_extension_views` module is the following:
+建议的`my_extension_views`模块结构如下：
 
 ```python
 """Views for MyExtension."""
@@ -151,24 +147,24 @@ class MyExtensionViews:
         return price_historical(**kwargs)
 ```
 
-> Note that `my_extension_views` lives under the `openbb_my_extension` package.
+> 注意`my_extension_views`位于`openbb_my_extension`包下。
 
-Afterwards, you'll need to add the visualization to your new `MyExtensionViews` class. The convention to match the endpoint with the respective charting function is the following:
+之后，您需要将可视化添加到新的`MyExtensionViews`类中。匹配端点与相应图表函数的约定如下：
 
 - `/equity/price/historical` -> `equity_price_historical`
 - `/technical/ema` -> `technical_ema`
 - `/my_extension/price_historical` -> `my_extension_price_historical`
 
-When you spot the charting function on the charting router file, you can add the visualization to it.
+当您在图表路由器文件中看到图表函数时，可以将可视化添加到其中。
 
-The implementation should leverage the already existing classes and methods to do so, namely:
+实现应该利用已经存在的类和方法来实现，即：
 
 - `OpenBBFigure`
 - `PlotlyTA`
 
-Note that the return of each charting function should respect the already defined return types: `Tuple[OpenBBFigure, Dict[str, Any]]`.
+请注意，每个图表函数的返回应该尊重已经定义的返回类型：`Tuple[OpenBBFigure, Dict[str, Any]]`。
 
-The returned tuple contains a `OpenBBFigure` that is an interactive plotly figure which can be used in a Python interpreter, and a `Dict[str, Any]` that contains the raw data leveraged by the API.
+返回的元组包含一个`OpenBBFigure`，这是一个交互式的plotly图形，可以用于Python解释器，以及一个`Dict[str, Any]`，其中包含API利用的原始数据。
 
-After you're done implementing the charting function, you can use either the Python interface or the API to get the chart. To do so, you'll only need to set the already available `chart` argument to `True`.
-Or accessing the `charting` attribute of the `OBBject` object: `my_obbject.charting.show()`.
+完成图表函数的实现后，您可以使用Python接口或API获取图表。为此，您只需要将已经可用的`chart`参数设置为`True`。
+或访问`OBBject`对象的`charting`属性：`my_obbject.charting.show()`。

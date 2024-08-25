@@ -1,153 +1,132 @@
 <br />
-<img src="https://github.com/OpenBB-finance/OpenBB/blob/develop/images/platform-light.svg?raw=true#gh-light-mode-only" alt="OpenBB Terminal logo" width="600">
-<img src="https://github.com/OpenBB-finance/OpenBB/blob/develop/images/platform-dark.svg?raw=true#gh-dark-mode-only" alt="OpenBB Terminal logo" width="600">
+<img src="https://github.com/OpenBB-finance/OpenBB/blob/develop/images/platform-light.svg?raw=true#gh-light-mode-only" alt="OpenBB终端标志" width="600">
+<img src="https://github.com/OpenBB-finance/OpenBB/blob/develop/images/platform-dark.svg?raw=true#gh-dark-mode-only" alt="OpenBB终端标志" width="600">
 <br />
 <br />
 
-[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/openbb_finance.svg?style=social&label=Follow%20%40openbb_finance)](https://twitter.com/openbb_finance)
-![Discord Shield](https://discordapp.com/api/guilds/831165782750789672/widget.png?style=shield)
-[![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/OpenBB-finance/OpenBB)
-<a href="https://codespaces.new/OpenBB-finance/OpenBBTerminal">
+[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/openbb_finance.svg?style=social&label=关注%40openbb_finance)](https://twitter.com/openbb_finance)   
+![Discord Shield](https://discordapp.com/api/guilds/831165782750789672/widget.png?style=shield)   
+[![在Dev Containers中打开](https://img.shields.io/static/v1?label=开发容器&message=打开&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/awesome-generative-ai/OpenBB)   
+<a href="https://codespaces.new/OpenBB-finance/OpenBBTerminal">   
   <img src="https://github.com/codespaces/badge.svg" height="20" />
 </a>
-<a target="_blank" href="https://colab.research.google.com/github/OpenBB-finance/OpenBBTerminal/blob/develop/examples/googleColab.ipynb">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+<a target="_blank" href="https://colab.research.google.com/github/OpenBB-finance/OpenBBTerminal/blob/develop/examples/googleColab.ipynb">   
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="在Colab中打开"/>
 </a>
-[![PyPI](https://img.shields.io/pypi/v/openbb?color=blue&label=PyPI%20Package)](https://pypi.org/project/openbb/)
+[![PyPI](https://img.shields.io/pypi/v/openbb?color=blue&label=PyPI%20包)](https://pypi.org/project/openbb/)   
 
-The first financial Platform that is free and fully open source.
+首个免费且完全开源的金融平台。
 
-Offers access to equity, options, crypto, forex, macro economy, fixed income, and more while also offering a broad range of extensions to enhance the user experience according to their needs.
+提供对股票、期权、加密货币、外汇、宏观经济、固定收益等的访问，同时还提供广泛的扩展功能以满足用户需求，增强用户体验。
 
-Sign up to the [OpenBB Hub](https://my.openbb.co/login) to get the most out of the OpenBB ecosystem.
+注册[OpenBB Hub](https://my.openbb.co/login)以充分利用OpenBB生态系统。
 
-We have also open source an AI financial analyst agent that can access all the data within OpenBB, and that repo can be found [here](https://github.com/OpenBB-finance/openbb-agents).
+我们还开源了一个AI金融分析师代理，它可以访问OpenBB中的所有数据，该代码库可以在[这里](https://github.com/awesome-generative-ai/openbb-agents)找到。
 
 ---
 
-If you are looking for the first AI financial terminal for professionals, the OpenBB Terminal Pro can be found at [pro.openbb.co](https://pro.openbb.co)
+如果您正在寻找面向专业人士的首个AI金融终端，可以在[pro.openbb.co](https://pro.openbb.co)找到OpenBB Terminal Pro。
 
-<a href="https://pro.openbb.co">
+<a href="https://pro.openbb.co">   
   <div align="center">
-  <img src="https://openbb.co/api/image?src=%2Fassets%2Fimages%2Fhome%2Fhero.png&width=2400&fit=cover&position=center&background[]=0&background[]=0&background[]=0&background[]=0&quality=100&compressionLevel=9&loop=0&delay=100&crop=null" alt="Logo" width="600">
+  <img src="https://openbb.co/api/image?src=%2Fassets%2Fimages%2Fhome%2Fhero.png&width=2400&fit=cover&position=center&background[]=0&background[]=0&background[]=0&background[]=0&quality=100&compressionLevel=9&loop=0&delay=100&crop=null" alt="标志" width="600">
   </div>
 </a>
 
 ---
 
-<!-- TABLE OF CONTENTS -->
+<!-- 目录 -->
 <details closed="closed">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <summary><h2 style="display: inline-block">目录</h2></summary>
   <ol>
-    <li><a href="#1-installation">Installation</a></li>
-    <li><a href="#2-contributing">Contributing</a></li>
-    <li><a href="#3-license">License</a></li>
-    <li><a href="#4-disclaimer">Disclaimer</a></li>
-    <li><a href="#5-contacts">Contacts</a></li>
-    <li><a href="#6-star-history">Star History</a></li>
-    <li><a href="#7-contributors">Contributors</a></li>
+    <li><a href="#1-安装">安装</a></li>
+    <li><a href="#2-贡献">贡献</a></li>
+    <li><a href="#3-许可证">许可证</a></li>
+    <li><a href="#4-免责声明">免责声明</a></li>
+    <li><a href="#5-联系方式">联系方式</a></li>
+    <li><a href="#6-星标历史">星标历史</a></li>
+    <li><a href="#7-贡献者">贡献者</a></li>
   </ol>
 </details>
 
-## 1. Installation
+## 1. 安装
 
-The OpenBB Platform can be installed as a [PyPI package](https://pypi.org/project/openbb/) by running `pip install openbb`
+OpenBB平台可以作为[PyPI包](https://pypi.org/project/openbb/)通过运行`pip install openbb`安装
 
-or by cloning the repository directly with `git clone https://github.com/OpenBB-finance/OpenBB.git`.
+或者通过直接克隆仓库`git clone https://github.com/awesome-generative-ai/OpenBB.git`。
 
-Please find more about the installation process in the [OpenBB Documentation](https://docs.openbb.co/platform/installation).
+更多安装过程信息，请查看[OpenBB文档](https://docs.openbb.co/platform/installation)。
 
-### OpenBB Platform CLI installation
+### OpenBB平台CLI安装
 
-The OpenBB Platform CLI is a command-line interface that allows you to access the OpenBB Platform directly from your terminal.
+OpenBB平台CLI是一个命令行界面，允许您直接从终端访问OpenBB平台。
 
-It can be installed by running `pip install openbb-cli`
+可以通过运行`pip install openbb-cli`安装
 
-or by cloning the repository directly with  `git clone https://github.com/OpenBB-finance/OpenBB.git`.
+或者通过直接克隆仓库`git clone https://github.com/awesome-generative-ai/OpenBB.git`。
 
-Please find more about the installation process in the [OpenBB Documentation](https://docs.openbb.co/cli/installation).
+更多安装过程信息，请查看[OpenBB文档](https://docs.openbb.co/cli/installation)。
 
-> The OpenBB Platform CLI offers an alternative to the former [OpenBB Terminal](https://github.com/OpenBB-finance/LegacyTerminal) as it has the same look and feel while offering the functionalities and extendability of the OpenBB Platform.
+> OpenBB平台CLI提供了对前[OpenBB终端](https://github.com/OpenBB-finance/LegacyTerminal)的替代，因为它具有相同的外观和感觉，同时提供了OpenBB平台的功能和可扩展性。
 
-## 2. Contributing
+## 2. 贡献
 
-There are three main ways of contributing to this project. (Hopefully you have starred the project by now ⭐️)
+有三种主要方式可以为这个项目做出贡献。（希望您现在已经给项目加星标了⭐️）
 
-### Become a Contributor
+### 成为贡献者
 
-* More information on our [Contributing Documentation](https://docs.openbb.co/platform/developer_guide/contributing).
+* 更多信息请查看我们的[贡献文档](https://docs.openbb.co/platform/developer_guide/contributing)。
 
-### Create a GitHub ticket
+### 创建GitHub工单
 
-Before creating a ticket make sure the one you are creating doesn't exist already [here](https://github.com/OpenBB-finance/OpenBB/issues)
+在创建工单之前，请确保您要创建的工单在这里[不存在](https://github.com/OpenBB-finance/OpenBB/issues)。
 
-* [Report bug](https://github.com/OpenBB-finance/OpenBB/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBug%5D)
-* [Suggest improvement](https://github.com/OpenBB-finance/OpenBB/issues/new?assignees=&labels=enhancement&template=enhancement.md&title=%5BIMPROVE%5D)
-* [Request a feature](https://github.com/OpenBB-finance/OpenBB/issues/new?assignees=&labels=new+feature&template=feature_request.md&title=%5BFR%5D)
+* [报告错误](https://github.com/OpenBB-finance/OpenBB/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBug%5D)   
+* [建议改进](https://github.com/OpenBB-finance/OpenBB/issues/new?assignees=&labels=enhancement&template=enhancement.md&title=%5BIMPROVE%5D)   
+* [请求功能](https://github.com/OpenBB-finance/OpenBB/issues/new?assignees=&labels=new+feature&template=feature_request.md&title=%5BFR%5D)   
 
-### Provide feedback
+### 提供反馈
 
-We are most active on [our Discord](https://openbb.co/discord), but feel free to reach out to us in any of [our social media](https://openbb.co/links) for feedback.
+我们在[我们的Discord](https://openbb.co/discord)上最活跃，但请随时通过[我们的社交媒体](https://openbb.co/links)向我们反馈。
 
-## 3. License
+## 3. 许可证
 
-Distributed under the AGPLv3 License. See
-[LICENSE](https://github.com/OpenBB-finance/OpenBB/blob/main/LICENSE) for more information.
+根据AGPLv3许可证分发。更多信息请查看
+[许可证](https://github.com/awesome-generative-ai/OpenBB/blob/main/LICENSE)。
 
-## 4. Disclaimer
+## 4. 免责声明
 
-Trading in financial instruments involves high risks including the risk of losing some, or all, of your investment
-amount, and may not be suitable for all investors.
+交易金融工具涉及高风险，包括失去部分或全部投资金额的风险，可能不适合所有投资者。
 
-Before deciding to trade in a financial instrument you should be fully informed of the risks and costs associated with trading the financial markets, carefully consider your investment objectives, level of experience, and risk appetite, and seek professional advice where needed.
+在决定交易金融工具之前，您应该充分了解与交易金融市场相关的风险和成本，仔细考虑您的投资目标、经验水平和风险承受能力，并在需要时寻求专业建议。
 
-The data contained in the OpenBBTerminal is not necessarily accurate.
+OpenBB终端中包含的数据不一定准确。
 
-OpenBB and any provider of the data contained in this website will not accept liability for any loss or damage as a result of your trading, or your reliance on the information displayed.
+OpenBB及本网站包含的数据的任何提供者将不对您的交易或您依赖显示的信息而产生的任何损失或损害承担责任。
 
-All names, logos, and brands of third parties that may be referenced in our sites, products or documentation are trademarks of their respective owners. Unless otherwise specified, OpenBB and its products and services are not endorsed by, sponsored by, or affiliated with these third parties.
-Our use of these names, logos, and brands is for identification purposes only, and does not imply any such endorsement, sponsorship, or affiliation.
+我们网站、产品或文档中可能提及的第三方的所有名称、标志和品牌均为其各自所有者的商标。除非另有说明，OpenBB及其产品与服务并未获得这些第三方的背书、赞助或关联。
+我们使用这些名称、标志和品牌仅为识别目的，并不意味着任何此类背书、赞助或关联。
 
-## 5. Contacts
+## 5. 联系方式
 
-If you have any questions about the terminal or anything OpenBB, feel free to email us at `support@openbb.co`
+如果您对终端或OpenBB有任何问题，请随时通过`support@openbb.co`给我们发送电子邮件。
 
-If you want to say hi, or are interested in partnering with us, feel free to reach us at `hello@openbb.co`
+如果您想打个招呼，或有兴趣与我们合作，请随时通过`hello@openbb.co`与我们联系。
 
-Any of our social media platforms: [openbb.co/links](https://openbb.co/links)
+我们的任何社交媒体平台：[openbb.co/links](https://openbb.co/links)。
 
-## 6. Star History
+## 6. 星标历史
 
-This is a proxy of our growth and that we are just getting started.
+这是我们成长的代表，我们才刚刚开始。
 
-But for more metrics important to us check [openbb.co/open](https://openbb.co/open).
+但要查看对我们来说更重要的指标，请访问[openbb.co/open](https://openbb.co/open)。
 
-[![Star History Chart](https://api.star-history.com/svg?repos=openbb-finance/OpenBBTerminal&type=Date&theme=dark)](https://api.star-history.com/svg?repos=openbb-finance/OpenBBTerminal&type=Date&theme=dark)
+[![星标历史图表](https://api.star-history.com/svg?repos=openbb-finance/OpenBBTerminal&type=Date&theme=dark)](https://api.star-history.com/svg?repos=openbb-finance/OpenBBTerminal&type=Date&theme=dark)。
 
-## 7. Contributors
+## 7. 贡献者
 
-OpenBB wouldn't be OpenBB without you. If we are going to disrupt financial industry, every contribution counts. Thank you for being part of this journey.
+没有您，OpenBB就不会是OpenBB。如果我们要颠覆金融行业，每一次贡献都很重要。感谢您成为这段旅程的一部分。
 
-<a href="https://github.com/OpenBB-finance/OpenBB/graphs/contributors">
+<a href="https://github.com/OpenBB-finance/OpenBB/graphs/contributors">   
    <img src="https://contributors-img.web.app/image?repo=OpenBB-finance/OpenBBTerminal" width="800"/>
 </a>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/OpenBB-finance/OpenBBTerminal.svg?style=for-the-badge
-[contributors-url]: https://github.com/OpenBB-finance/OpenBB/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/OpenBB-finance/OpenBBTerminal.svg?style=for-the-badge
-[forks-url]: https://github.com/OpenBB-finance/OpenBB/network/members
-[stars-shield]: https://img.shields.io/github/stars/OpenBB-finance/OpenBBTerminal.svg?style=for-the-badge
-[stars-url]: https://github.com/OpenBB-finance/OpenBB/stargazers
-[issues-shield]: https://img.shields.io/github/issues/OpenBB-finance/OpenBBTerminal.svg?style=for-the-badge&color=blue
-[issues-url]: https://github.com/OpenBB-finance/OpenBB/issues
-[bugs-open-shield]: https://img.shields.io/github/issues/OpenBB-finance/OpenBBTerminal/bug.svg?style=for-the-badge&color=yellow
-[bugs-open-url]: https://github.com/OpenBB-finance/OpenBB/issues?q=is%3Aissue+label%3Abug+is%3Aopen
-[bugs-closed-shield]: https://img.shields.io/github/issues-closed/OpenBB-finance/OpenBBTerminal/bug.svg?style=for-the-badge&color=success
-[bugs-closed-url]: https://github.com/OpenBB-finance/OpenBB/issues?q=is%3Aissue+label%3Abug+is%3Aclosed
-[license-shield]: https://img.shields.io/github/license/OpenBB-finance/OpenBBTerminal.svg?style=for-the-badge
-[license-url]: https://github.com/OpenBB-finance/OpenBB/blob/main/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/DidierRLopes
