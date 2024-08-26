@@ -1,5 +1,5 @@
 
-# Contributing to the OpenBB Platform
+# 贡献到 OpenBB 平台
 
 <!-- markdownlint-disable MD033 MD024 -->
 
@@ -58,95 +58,94 @@
       - [How to create a PR?](#how-to-create-a-pr)
         - [Branch Naming Conventions](#branch-naming-conventions)
 
-## Introduction
+## 介绍
 
-This document provides guidelines for contributing to the OpenBB Platform.
-Throughout this document, we will be differentiating between two types of contributors: Developers and Contributors.
+本文档提供了贡献到 OpenBB 平台的指南。在本文档中，我们将区分两种类型的贡献者：开发者和贡献者。
 
-1. **Developers**: Those who are building new features or extensions for the OpenBB Platform or leveraging the OpenBB Platform.
-2. **Contributors**: Those who contribute to the existing codebase, by opening a [Pull Request](#getting_started-create-a-pr) thus giving back to the community.
+1. **开发者**: 为 OpenBB 平台构建新功能或扩展，或利用 OpenBB 平台的人。
+2. **贡献者**: 通过开启一个[拉取请求](#getting_started-create-a-pr)来贡献现有代码库，从而回馈社区。
 
-**Why is this distinction important?**
+**为什么这种区分很重要？**
 
-The OpenBB Platform is designed as a foundation for further development. We anticipate a wide range of creative use cases for it. Some use cases may be highly specific or detail-oriented, solving particular problems that may not necessarily fit within the OpenBB Platform Github repository. This is entirely acceptable and even encouraged. This document provides a comprehensive guide on how to build your own extensions, add new data points, and more.
+OpenBB 平台被设计为基础开发的基础。我们预计它将有广泛的创造性用例。有些用例可能非常特定或注重细节，解决可能不一定适合 OpenBB 平台 Github 存储库的特定问题。这完全是可以接受的，甚至是鼓励的。本文档提供了一个全面的指南，介绍如何构建您自己的扩展，添加新的数据点等。
 
-The **Developer** role, as defined in this document, can be thought of as the foundational role. Developers are those who use the OpenBB Platform as is or build upon it.
+本文档中定义的**开发者**角色可以被视为基础角色。开发者是使用 OpenBB 平台原样或在其上构建的人。
 
-Conversely, the **Contributor** role refers to those who enhance the OpenBB Platform codebase (either by directly adding to the OpenBB Platform or by extending the [extension repository](/openbb_platform/extensions/)). Contributors are willing to go the extra mile, spending additional time on quality assurance, testing, or collaborating with the OpenBB development team to ensure adherence to standards, thereby giving back to the community.
+相反，**贡献者**角色指的是那些通过直接添加到 OpenBB 平台或通过扩展[扩展存储库](/openbb_platform/extensions/)来增强 OpenBB 平台代码库的人。贡献者愿意多走一英里，花费额外的时间进行质量保证、测试或与 OpenBB 开发团队合作，以确保遵守标准，从而回馈社区。
 
-### Quick look into the OpenBB Platform
+### OpenBB 平台快速一览
 
-The OpenBB Platform is built by the Open-Source community and is characterized by its core and extensions. The core handles data integration and standardization, while the extensions enable customization and advanced functionalities. The OpenBB Platform is designed to be used both from a Python interface and a REST API.
+OpenBB 平台由开源社区构建，其特点是核心和扩展。核心处理数据集成和标准化，而扩展启用定制和高级功能。OpenBB 平台旨在既可以通过 Python 接口也可以通过 REST API 使用。
 
-The REST API is built on top of FastAPI and can be started by running the following command from the root:
+REST API 建立在 FastAPI 之上，可以通过从根目录运行以下命令来启动：
 
 ```bash
 uvicorn openbb_platform.core.openbb_core.api.rest_api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-The Python interfaces we provide to users is the `openbb` python package.
+我们向用户提供的 Python 接口是 `openbb` Python 包。
 
-The code you will find in this package is generated from a script and it is just a wrapper around the `openbb-core` and any installed extensions.
+您在这个包中找到的代码是由脚本生成的，它只是 `openbb-core` 和任何已安装扩展的包装器。
 
-When the user runs `import openbb`, `from openbb import obb` or other variants, the script that generates the packaged code is triggered. It detects if there are new extensions installed in the environment and rebuilds the packaged code accordingly. If new extensions are not found, it just uses the current packaged version.
+当用户运行 `import openbb`, `from openbb import obb` 或其他变体时，会触发生成打包代码的脚本。它检测环境中是否安装了新扩展，并相应地重建打包代码。如果未找到新扩展，则只使用当前打包版本。
 
-When you are developing chances are you want to manually trigger the package rebuild.
+当您正在开发时，可能想要手动触发包重建。
 
-You can do that with:
+您可以这样做：
 
 ```python
 python -c "import openbb; openbb.build()"
 ```
 
-The Python interface can be imported with:
+Python 接口可以这样导入：
 
 ```python
 from openbb import obb
 ```
 
-This document will take you through two types of contributions:
+本文档将带您了解两种类型的贡献：
 
-1. Building a custom extension
-2. Contributing directly to the OpenBB Platform
+1. 构建自定义扩展
+2. 直接贡献到 OpenBB 平台
 
-Before moving forward, please take a look at the high-level view of the OpenBB Platform architecture. We will go over each bit in this document.
+在继续之前，请查看 OpenBB 平台架构的高级视图。我们将在本文档中逐一介绍每个部分。
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/OpenBB-finance/OpenBB/assets/74266147/c9a5a92a-28b6-4257-aefc-deaebe635c6a">
   <img alt="OpenBB Platform High-Level Architecture" src="https://github.com/OpenBB-finance/OpenBB/assets/74266147/c9a5a92a-28b6-4257-aefc-deaebe635c6a">
 </picture>
 
-#### What is the Standardization Framework?
+#### 什么是标准化框架？
 
-The Standardization Framework is a set of tools and guidelines that enable the user to query and obtain data in a consistent way across multiple providers.
+标准化框架是一套工具和指南，使用户能够以一致的方式跨多个提供商查询和获取数据。
 
-Each data model should inherit from a [standard data](platform/provider/openbb_core/provider/standard_models) model that is already defined inside the OpenBB Platform. All standard models are created and maintained by the OpenBB team.
+每个数据模型应该继承自 OpenBB 平台内已经定义的[标准数据](platform/provider/openbb_core/provider/standard_models)模型。所有标准模型都由 OpenBB 团队创建和维护。
 
-Usage of these models will unlock a set of perks that are only available to standardized data, namely:
+使用这些模型将解锁仅对标准化数据可用的一系列优势，即：
 
-- Can query and output data in a standardized way.
-- Can expect extensions that follow standardization to work out-of-the-box.
-- Can expect transparently defined schemas for the data that is returned by the API.
-- Can expect consistent data types and validation.
-- Will work seamlessly with other providers that use the same standard model.
+- 可以以标准化的方式查询和输出数据。
+- 可以期望遵循标准化的扩展能够即插即用。
+- 可以期望 API 返回的数据具有透明定义的模式。
+- 可以期望一致的数据类型和验证。
+- 将与使用相同标准模型的其他提供商无缝协作。
 
-The standard models are defined under the `/OpenBBTerminal/openbb_platform/platform/core/provider/openbb_core/provider/standard_models/` directory.
+标准模型定义在 `/OpenBBTerminal/openbb_platform/platform/core/provider/openbb_core/provider/standard_models/` 目录下。
 
-They define the [`QueryParams`](platform/provider/openbb_core/provider/abstract/query_params.py) and [`Data`](platform/provider/openbb_core/provider/abstract/data.py) models, which are used to query and output data. They are pydantic and you can leverage all the pydantic features such as validators.
+它们定义了 [`QueryParams`](platform/provider/openbb_core/provider/abstract/query_params.py) 和 [`Data`](platform/provider/openbb_core/provider/abstract/data.py) 模型，这些模型用于查询和输出数据。它们是 pydantic 的，您可以利用所有 pydantic 特性，如验证器。
 
-##### Standardization Caveats
+##### 标准化注意事项
 
-The standardization framework is a very powerful tool, but it has some caveats that you should be aware of:
+标准化框架是一个非常强大的工具，但它有一些您应该注意的注意事项：
 
-- We standardize fields that are shared between two or more providers. If there is a third provider that doesn't share the same fields, we will declare it as an `Optional` field.
-- When mapping the column names from a provider-specific model to the standard model, the CamelCase to snake_case conversion is done automatically. If the column names are not the same, you'll need to manually map them. (e.g. `o` -> `open`)
-- The standard models are created and maintained by the OpenBB team. If you want to add a new field to a standard model, you'll need to open a PR to the OpenBB Platform.
+- 我们标准化在两个或更多提供商之间共享的字段。如果有第三个提供商不共享相同的字段，我们将将其声明为 `Optional` 字段。
+- 当将列名从特定于提供商的模型映射到标准模型时，CamelCase 到 snake_case 的转换是自动完成的。如果列名不相同，您需要手动映射它们。（例如 `o` -> `open`）
+- 标准模型由 OpenBB 团队创建和维护。如果您想向标准模型添加一个新字段，您需要向 OpenBB 平台开启一个 PR。
 
-##### Standard QueryParams Example
+##### 标准 QueryParams 示例
 
 ```python
 class EquityHistoricalQueryParams(QueryParams):
-    """Equity Historical end of day Query."""
+    """股票历史尾盘查询. Equity Historical end of day Query."""
     symbol: str = Field(description=QUERY_DESCRIPTIONS.get("symbol", ""))
     start_date: Optional[date] = Field(
         description=QUERY_DESCRIPTIONS.get("start_date", ""), default=None
@@ -156,15 +155,15 @@ class EquityHistoricalQueryParams(QueryParams):
     )
 ```
 
-The `QueryParams` is an abstract class that just tells us that we are dealing with query parameters
+`QueryParams` 是一个抽象类，它仅仅告诉我们我们正在处理查询参数。
 
-The OpenBB Platform dynamically knows where the standard models begin in the inheritance tree, so you don't need to worry about it.
+OpenBB 平台动态地知道标准模型在继承树中的起始位置，所以你不需要担心它。
 
-##### Standard Data Example
+##### 标准数据示例
 
 ```python
 class EquityHistoricalData(Data):
-    """Equity Historical end of day price Data."""
+    """股票历史尾盘价格数据. Equity Historical end of day price Data."""
 
     date: datetime = Field(description=DATA_DESCRIPTIONS.get("date", ""))
     open: PositiveFloat = Field(description=DATA_DESCRIPTIONS.get("open", ""))
@@ -175,184 +174,184 @@ class EquityHistoricalData(Data):
     vwap: Optional[PositiveFloat] = Field(description=DATA_DESCRIPTIONS.get("vwap", ""), default=None)
 ```
 
-The `Data` class is an abstract class that tells us the expected output data. Here we can see a `vwap` field that is `Optional`. This is because not all providers share this field while it is shared between two or more providers.
+`Data` 类是一个抽象类，告诉我们预期的输出数据。在这里我们可以看到 `vwap` 字段是 `Optional`。这是因为并非所有提供商都共享此字段，而它在两个或更多提供商之间是共享的。
 
-#### What is an extension?
+#### 什么是扩展？
 
-An extension adds functionality to the OpenBB Platform. It can be a new data source, a new command, a new visualization, etc.
+扩展为 OpenBB 平台增加了功能。它可以是一个新的数据源、一个新的命令、一个新的可视化等。
 
-##### Types of extensions
+##### 扩展的类型
 
-We primarily have 3 types of extensions:
+我们主要有 3 种类型的扩展：
 
-1. OpenBB Extensions - built and maintained by the OpenBB team (e.g. `openbb-equity`)
-2. Community Extensions - built by anyone and primarily maintained by OpenBB (e.g. `openbb-yfinance`)
-3. Independent Extensions - built and maintained independently by anyone
+1. OpenBB 扩展 - 由 OpenBB 团队构建和维护（例如 `openbb-equity`）
+2. 社区扩展 - 由任何人构建，主要由 OpenBB 维护（例如 `openbb-yfinance`）
+3. 独立扩展 - 由任何人独立构建和维护
 
-If your extension is of high quality and you think that it would be a good community extension, you can open a PR to the OpenBB Platform repository and we'll review it.
+如果您的扩展质量很高，并且您认为它将是一个很好的社区扩展，您可以向 OpenBB 平台存储库开启一个 PR，我们将对其进行审查。
 
-We encourage independent extensions to be shared with the community by publishing them to PyPI.
+我们鼓励通过将独立扩展发布到 PyPI 与社区分享。
 
-## Dependency Management
+## 依赖管理
 
-### High-Level Overview
+### 高级概述
 
-- **Provider**: The base package with no dependencies on other `openbb` packages.
-- **Core**: Depends on the Provider and serves as the main infrastructural package.
-- **Extensions**: Utility packages that leverage Core's infrastructure. Each extension is its own package.
-- **Providers**: Utility packages extending functionality to different providers, where each provider is its own package.
+- **提供商（Provider）**: 没有依赖其他 `openbb` 包的基础包。
+- **核心（Core）**: 依赖于提供商，作为主要的基础设施包。
+- **扩展（Extensions）**: 利用核心的基础设施的实用包。每个扩展都是它自己的包。
+- **提供商（Providers）**: 扩展到不同提供商的实用包，每个提供商都是它自己的包。
 
-### Core Dependency Management
+### 核心依赖管理
 
-#### Installation
+#### 安装
 
 - **pip**: `pip install -e OpenBBTerminal/openbb_platform/platform/core`
 - **poetry**: `poetry install OpenBBTerminal/openbb_platform/platform/core`
 
-#### Using Poetry
+#### 使用 Poetry
 
-Ensure you're in a fresh conda environment before adjusting dependencies.
+在调整依赖之前，请确保您处于一个干净的 conda 环境中。
 
-- **Add a Dependency**: `poetry add <my-dependency>`
-- **Update Dependencies**:
-  - All: `poetry update`
-  - Specific: `poetry update <my-dependency>`
-- **Remove a Dependency**: `poetry remove <my-dependency>`
+- **添加依赖**: `poetry add <my-dependency>`
+- **更新依赖**:
+  - 全部: `poetry update`
+  - 特定: `poetry update <my-dependency>`
+- **移除依赖**: `poetry remove <my-dependency>`
 
-### Core and Extensions
+### 核心和扩展
 
-#### Installation
+#### 安装
 
-For development setup, use the provided script to install all extensions and their dependencies:
+对于开发设置，请使用提供的脚本安装所有扩展及其依赖项：
 
 - `python dev_install.py [-e|--extras]`
 
-> **Note**: If developing an extension, avoid installing all extensions to prevent unnecessary overhead.
+> **注意**: 如果正在开发扩展，请避免安装所有扩展以防止不必要的开销。
 
-#### Dependency Management with Poetry
+#### 使用 Poetry 管理依赖
 
-- **Add Platform Extension**: `poetry add openbb-extension-name [--dev]`
-- **Resolve Conflicts**: Adjust versions in `pyproject.toml` if notified by Poetry.
-- **Lock Dependencies**: `poetry lock`
-- **Update Platform**: `poetry update openbb-platform`
-- **Documentation**: Maintain `pyproject.toml` and `poetry.lock` for a clear record of dependencies.
+- **添加平台扩展**: `poetry add openbb-extension-name [--dev]`
+- **解决冲突**:如果 Poetry 通知，调整 `pyproject.toml` 中的版本。
+- **锁定依赖**：`poetry lock`
+- **更新平台**：`poetry update openbb-platform`
+- **文档**：维护 `pyproject.toml` 和 `poetry.lock` 以清晰记录依赖。
 
-## Developer Guidelines
+## 开发者指南
 
-### Expectations for Developers
+### 对开发者的期望
 
-1. Use Cases:
-   - Ensure that your extensions or features align with the broader goals of the application.
-   - Understand that the OpenBB Platform is designed to be foundational; build in a way that complements and doesn't conflict with its core functionalities.
+1. 使用案例：
+   - 确保您的扩展或功能与应用程序的更广泛目标一致。
+   - 理解 OpenBB 平台被设计为基础；以补充而不是与其核心功能冲突的方式构建。
 
-2. Documentation:
-   - Provide clear and comprehensive documentation for any new feature or extension you develop.
+2. 文档：
+   - 为任何新功能或扩展提供清晰全面的文档。
 
-3. Code Quality:
-   - Adhere to the coding standards and conventions of the OpenBB Platform.
-   - Ensure your code is maintainable, well-organized, and commented where necessary.
+3. 代码质量：
+   - 遵守 OpenBB 平台的编码标准和约定。
+   - 确保您的代码可维护、组织良好，并在必要时进行注释。
 
-4. Testing:
-   - Thoroughly test any new feature or extension to ensure it works as expected.
+4. 测试：
+   - 对任何新功能或扩展进行彻底测试，确保其按预期工作。
 
-5. Performance:
-   - Ensure that your extensions or features do not adversely affect the performance of the OpenBB Platform.
-   - Optimize for scalability, especially if you anticipate high demand for your feature.
+5. 性能：
+   - 确保您的扩展或功能不会对 OpenBB 平台的性能产生不利影响。
+   - 优化可扩展性，特别是如果您预计您的功能需求量大。
 
-6. Collaboration:
-   - Engage with the OpenBB community to gather feedback on your developments.
+6. 协作：
+   - 与 OpenBB 社区互动，收集对您的开发的反馈。
 
-### How to build OpenBB extensions?
+### 如何构建 OpenBB 扩展？
 
-We have a Cookiecutter template that will help you get started. It serves as a jumpstart for your extension development, so you can focus on the data and not on the boilerplate.
+我们有一个 Cookiecutter 模板，可以帮助您开始。它作为您扩展开发的起点，让您可以专注于数据而不是样板代码。
 
-Please refer to the [Cookiecutter template](https://github.com/OpenBB-finance/openbb-cookiecutter) and follow the instructions there.
+请参阅 [Cookiecutter 模板](https://github.com/OpenBB-finance/openbb-cookiecutter) 并按照那里的说明进行操作。
 
-This document will walk you through the steps of adding a new extension to the OpenBB Platform.
+本文档将指导您完成向 OpenBB 平台添加新扩展的步骤。
 
-The high level steps are:
+高级步骤是：
 
-- Generate the extension structure
-- Install your dependencies
-- Install your new package
-- Use your extension (either from Python or the API interface)
-- QA your extension
-- Share your extension with the community
+- 生成扩展结构
+- 安装您的依赖项
+- 安装您的新包
+- 使用您的扩展（无论是从 Python 还是 API 接口）
+- 对您的扩展进行 QA
+- 与社区分享您的扩展
 
-### Building Extensions: Best Practices
+### 构建扩展：最佳实践
 
-1. **Review Platform Dependencies**: Before adding any dependency, ensure it aligns with the Platform's existing dependencies.
-2. **Use Loose Versioning**: If possible, specify a range to maintain compatibility. E.g., `>=1.4,<1.5`.
-3. **Testing**: Test your extension with the Platform's core to avoid conflicts. Both unit and integration tests are recommended.
-4. **Document Dependencies**: Use `pyproject.toml` and `poetry.lock` for clear, up-to-date records.
+1. **审查平台依赖**：在添加任何依赖之前，请确保它与平台的现有依赖一致。
+2. **使用宽松版本控制**：如果可能，指定一个范围以保持兼容性。例如，`>=1.4,<1.5`。
+3. **测试**：使用平台的核心测试您的扩展，以避免冲突。推荐进行单元和集成测试。
+4. **记录依赖**：使用 `pyproject.toml` 和 `poetry.lock` 清晰、及时地记录。
 
-### How to add a new data point?
+### 如何添加新的数据点？
 
-In this section, we'll be adding a new data point to the OpenBB Platform. We will add a new provider with an existing [standard data](platform/provider/openbb_core/provider/standard_models) model.
+在本节中，我们将向 OpenBB 平台添加一个新的数据点。我们将添加一个新的提供商，使用现有的[标准数据](platform/provider/openbb_core/provider/standard_models)模型。
 
-#### Identify which type of data you want to add
+#### 确定您要添加的数据类型
 
-In this example, we'll be adding OHLC stock data that is used by the `obb.equity.price.historical` command.
+在这个例子中，我们将添加 OHLC 股票数据，该数据被 `obb.equity.price.historical` 命令使用。
 
-Note that, if no command exists for your data, we need to add one under the right router.
-Each router is categorized under different extensions (equity, currency, crypto, etc.).
+请注意，如果没有为您的数据存在命令，我们需要在正确的路由器下添加一个。
+每个路由器都归类在不同的扩展下（股票、货币、加密货币等）。
 
-#### Check if the standard model exists
+#### 检查标准模型是否存在
 
-Given the fact that there's already an endpoint for OHLCV stock data, we can check if the standard exists.
+鉴于已经有 OHLCV 股票数据的端点，我们可以检查标准是否存在。
 
-In this case, it's `EquityHistorical` which can be found in `/OpenBBTerminal/openbb_platform/platform/core/provider/openbb_core/provider/standard_models/equity_historical`.
+在这种情况下，它是 `EquityHistorical`，可以在 `/OpenBBTerminal/openbb_platform/platform/core/provider/openbb_core/provider/standard_models/equity_historical` 中找到。
 
-If the standard model doesn't exist:
+如果标准模型不存在：
 
-- you won't need to inherit from it in the next steps.
-- all your provider query parameters will be under the `**kwargs` in the python interface.
-- it might not work out-of-the box with other extensions that follow standardization e.g. the `charting` extension
+- 您将不需要在下一步中继承它。
+- 您的所有提供商查询参数将在 Python 接口中的 `**kwargs` 下。
+- 它可能无法即插即用地与其他遵循标准化的扩展一起工作，例如 `charting` 扩展
 
-##### Create Query Parameters model
+##### 创建查询参数模型
 
-Query Parameters are the parameters that are passed to the API endpoint in order to make the request.
+查询参数是传递给 API 端点以进行请求的参数。
 
-For the `EquityHistorical` example, this would look like the following:
+对于 `EquityHistorical` 示例，它看起来像下面这样：
 
 ```python
 
 class <ProviderName>EquityHistoricalQueryParams(EquityHistoricalQueryParams):
-    """<ProviderName> Equity Historical Query.
+    """<ProviderName> 股票历史查询。
 
-    Source: https://www.<provider_name>.co/documentation/
+    来源：<url id="" type="url" status="" title="" wc="">https://www.<provider_name>.co/documentation/</url>  
     """
 
-    # provider specific query parameters if any
+    # 如果有任何特定于提供商的查询参数
 
 ```
 
-##### Create Data Output model
+##### 创建数据输出模型
 
-The data output is the data that is returned by the API endpoint.
-For the `EquityHistorical` example, this would look like the following:
+数据输出是 API 端点返回的数据。
+对于 `EquityHistorical` 示例，它看起来像下面这样：
 
 ```python
 
 class <ProviderName>EquityHistoricalData(EquityHistoricalData):
-    """<ProviderName> Equity Historical Data.
+    """<ProviderName> 股票历史数据。
 
-    Source: https://www.<provider_name>.co/documentation/
+    来源：<url id="" type="url" status="" title="" wc="">https://www.<provider_name>.co/documentation/</url>  
     """
 
-    # provider specific data output fields if any
+    # 如果有任何特定于提供商的数据输出字段
 
 ```
 
-> Note that, since `EquityHistoricalData` inherits from pydantic's `BaseModel`, we can leverage validators to perform additional checks on the output model. A very good example of this, would be to transform a string date into a datetime object.
+> 请注意，由于 `EquityHistoricalData` 继承自 pydantic 的 `BaseModel`，我们可以利用验证器对输出模型执行额外的检查。一个很好的例子是将字符串日期转换为 datetime 对象。
 
-##### Build the Fetcher
+##### 构建 Fetcher
 
-The `Fetcher` class is responsible for making the request to the API endpoint and providing the output.
+`Fetcher` 类负责向 API 端点发出请求并提供输出。
 
-It will receive the query parameters, and it will return the output while leveraging the pydantic model schemas.
+它将接收查询参数，并在利用 pydantic 模型模式的同时返回输出。
 
-For the `EquityHistorical` example, this would look like the following:
+对于 `EquityHistorical` 示例，它看起来像下面这样：
 
 ```python
 class <ProviderName>EquityHistoricalFetcher(
@@ -361,11 +360,11 @@ class <ProviderName>EquityHistoricalFetcher(
         List[<ProviderName>EquityHistoricalData],
     ]
 ):
-    """Transform the query, extract and transform the data."""
+    """转换查询，提取和转换数据."""
 
     @staticmethod
     def transform_query(params: Dict[str, Any]) -> <ProviderName>EquityHistoricalQueryParams:
-        """Transform the query parameters."""
+        """转换查询参数."""
 
         return <ProviderName>EquityHistoricalQueryParams(**transformed_params)
 
@@ -375,7 +374,7 @@ class <ProviderName>EquityHistoricalFetcher(
         credentials: Optional[Dict[str, str]],
         **kwargs: Any,
     ) -> dict:
-        """Return the raw data from the endpoint."""
+        """从端点返回原始数据."""
 
         obtained_data = my_request(query, credentials, **kwargs)
 
@@ -387,14 +386,14 @@ class <ProviderName>EquityHistoricalFetcher(
         data: dict,
         **kwargs: Any,
     ) -> List[<ProviderName>EquityHistoricalData]:
-        """Transform the data to the standard format."""
+        """将数据转换为标准格式."""
 
         return [<ProviderName>EquityHistoricalData.model_validate(d) for d in data]
 ```
 
-> Make sure that you're following the TET pattern when building a `Fetcher` - **Transform, Extract, Transform**. See more on this [here](#the-tet-pattern).
+> 确保您在构建 `Fetcher` 时遵循 TET 模式 - **转换，提取，转换**。在[这里](#the-tet-pattern)了解更多。
 
-By default the credentials declared on each `Provider` are required. This means that before a query is executed, we check that all the credentials are present and if not an exception is raised. If you want to make credentials optional on a given fetcher, even though they are declared on the `Provider`, you can add `require_credentials=False` to the `Fetcher` class. See the following example:
+默认情况下，每个 `Provider` 上声明的凭据都是必需的。这意味着在执行查询之前，我们会检查所有凭据是否都在场，如果没有就会引发异常。如果您想让某个 fetcher 的凭据变为可选，即使在 `Provider` 上声明了它们，您可以将 `require_credentials=False` 添加到 `Fetcher` 类中。请参阅以下示例：
 
 ```python
 class <ProviderName>EquityHistoricalFetcher(
@@ -403,19 +402,19 @@ class <ProviderName>EquityHistoricalFetcher(
         List[<ProviderName>EquityHistoricalData],
     ]
 ):
-    """Transform the query, extract and transform the data."""
+    """转换查询，提取和转换数据."""
 
     require_credentials = False
 
     ...
 ```
 
-#### Make the provider visible
+#### 使提供商可见
 
-In order to make the new provider visible to the OpenBB Platform, you'll need to add it to the `__init__.py` file of the `providers/<provider_name>/openbb_<provider_name>/` folder.
+为了使新提供商对 OpenBB 平台可见，您需要将其添加到 `providers/<provider_name>/openbb_<provider_name>/` 文件夹的 `__init__.py` 文件中。
 
 ```python
-"""<Provider Name> Provider module."""
+"""<Provider Name> 提供商模块."""
 from openbb_core.provider.abstract.provider import Provider
 
 from openbb_<provider_name>.models.equity_historical import <ProviderName>EquityHistoricalFetcher
@@ -423,7 +422,7 @@ from openbb_<provider_name>.models.equity_historical import <ProviderName>Equity
 <provider_name>_provider = Provider(
     name="<provider_name>",
     website="<URL to the provider website>",
-    description="Provider description goes here",
+    description="提供商描述在这里",
     credentials=["api_key"],
     fetcher_dict={
         "EquityHistorical": <ProviderName>EquityHistoricalFetcher,
@@ -431,134 +430,134 @@ from openbb_<provider_name>.models.equity_historical import <ProviderName>Equity
 )
 ```
 
-If the provider does not require any credentials, you can remove that parameter. On the other hand, if it requires more than 2 items to authenticate, you can add a list of all the required items to the `credentials` list.
+如果提供商不需要任何凭据，您可以删除该参数。另一方面，如果它需要超过 2 个项目进行身份验证，您可以将所有所需项目添加到 `credentials` 列表中。
 
-After running `pip install .` on `openbb_platform/providers/<provider_name>` your provider should be ready for usage, both from the Python interface and the API.
+在 `openbb_platform/providers/<provider_name>` 上运行 `pip install .` 后，您的提供商应该已经准备好使用了，无论是从 Python 接口还是 API。
 
-### How to add custom data sources?
+### 如何添加自定义数据源？
 
-You will get your data either from a CSV file, local database or from an API endpoint.
+您将从 CSV 文件、本地数据库或 API 端点获取您的数据。
 
-If you don't want or don't need to partake in the data standardization framework, you have the option to add all the logic straight inside the router file. This is usually the case when you are returning custom data from your local CSV file, or similar. Keep in mind that we also serve the REST API and that you shouldn't send non-serializable objects as a response (e.g. a pandas dataframe).
+如果您不想或不需要参与数据标准化框架，您可以选择将所有逻辑直接放在路由器文件中。这通常适用于您从本地 CSV 文件返回自定义数据的情况，或类似情况。请记住，我们还提供 REST API，您不应将不可序列化的对象作为响应发送（例如 pandas dataframe）。
 
-Saying that, we highly recommend following the standardization framework, as it will make your life easier in the long run and unlock a set of features that are only available to standardized data.
+也就是说，我们强烈建议遵循标准化框架，因为这将使您的长期工作更轻松，并解锁仅对标准化数据可用的一组功能。
 
-When standardizing, all data is defined using two different pydantic models:
+当标准化时，所有数据都使用两种不同的 pydantic 模型定义：
 
-1. Define the [query parameters](platform/provider/openbb_core/provider/abstract/query_params.py) model.
-2. Define the resulting [data schema](platform/provider/openbb_core/provider/abstract/data.py) model.
+1. 定义[查询参数](platform/provider/openbb_core/provider/abstract/query_params.py)模型。
+2. 定义结果[数据模式](platform/provider/openbb_core/provider/abstract/data.py)模型。
 
-> The models can be entirely custom, or inherit from the OpenBB standardized models.
-> They enforce a safe and consistent data structure, validation and type checking.
+> 模型可以完全是自定义的，也可以从 OpenBB 标准化模型继承。
+> 它们强化了安全且一致的数据结构、验证和类型检查。
 
-We call this the ***Know-Your-Data*** principle.
+我们称这为 ***了解您的数据*** 原则。
 
-After you've defined both models, you'll need to define a `Fetcher` class which contains three methods:
+在定义了这两个模型之后，您需要定义一个 `Fetcher` 类，其中包含三个方法：
 
-1. `transform_query` - transforms the query parameters to the format of the API endpoint.
-2. `extract_data` - makes the request to the API endpoint and returns the raw data.
-3. `transform_data` - transforms the raw data into the defined data model.
+1. `transform_query` - 转换查询参数以适应 API 端点的格式。
+2. `extract_data` - 向 API 端点发出请求并返回原始数据。
+3. `transform_data` - 将原始数据转换为定义的数据模型。
 
-> Note that the `Fetcher` should inherit from the [`Fetcher`](platform/provider/openbb_core/provider/abstract/fetcher.py) class, which is a generic class that receives the query parameters and the data model as type parameters.
+> 注意，`Fetcher` 应该从 [`Fetcher`](platform/provider/openbb_core/provider/abstract/fetcher.py) 类继承，这是一个通用类，接收查询参数和数据模型作为类型参数。
 
-After finalizing your models, you need to make them visible to the Openbb Platform. This is done by adding the `Fetcher` to the `__init__.py` file of the `<your_package_name>/<your_module_name>` folder as part of the [`Provider`](platform/provider/openbb_core/provider/abstract/provider.py).
+在完成您的模型后，您需要使它们对 Openbb 平台可见。这通过将 `Fetcher` 添加到 `<your_package_name>/<your_module_name>` 文件夹的 `__init__.py` 文件中作为 [`Provider`](platform/provider/openbb_core/provider/abstract/provider.py) 的一部分来完成。
 
-Any command, that uses the `Fetcher` class you've just defined, will be calling the `transform_query`, `extract_data` and `transform_data` methods under the hood in order to get the data and output it do the end user.
+任何使用您刚刚定义的 `Fetcher` 类的命令，都将在后台调用 `transform_query`、`extract_data` 和 `transform_data` 方法，以获取数据并将其输出给最终用户。
 
-If you're not sure what's a command and why is it even using the `Fetcher` class, follow along!
+如果您不确定什么是命令，以及为什么它甚至使用 `Fetcher` 类，请继续关注！
 
-#### OpenBB Platform commands
+#### OpenBB 平台命令
 
-The OpenBB Platform will enable you to query and output your data in a very simple way.
+OpenBB 平台将使您能够以非常简单的方式查询和输出您的数据。
 
-> Any Platform endpoint will be available both from a Python interface and the API.
+> 任何平台端点都将同时从 Python 接口和 API 可用。
 
-The command definition on the Platform follows [FastAPI](https://fastapi.tiangolo.com/) conventions, meaning that you'll be creating **endpoints**.
+平台上的命令定义遵循 [FastAPI](https://fastapi.tiangolo.com/) 约定，这意味着您将创建 **端点**。
 
-The Cookiecutter template generates for you a `router.py` file with a set of examples that you can follow, namely:
+Cookiecutter 模板为您生成了一个 `router.py` 文件，其中包含一组示例供您参考，即：
 
-- Perform a simple `GET` and `POST` request - without worrying on any custom data definition.
-- Using a custom data definition so you get your data the exact way you want it.
+- 执行一个简单的 `GET` 和 `POST` 请求 - 不用担心任何自定义数据定义。
+- 使用自定义数据定义，以便您以完全想要的方式获取数据。
 
-You can expect the following endpoint structure when using a `Fetcher` to serve the data:
+当使用 `Fetcher` 来服务数据时，您可以预期以下端点结构：
 
 ```python
 @router.command(model="Example")
-async def model_example(    # create an async endpoint
+async def model_example(    # 创建一个异步端点
     cc: CommandContext,
     provider_choices: ProviderChoices,
     standard_params: StandardParams,
     extra_params: ExtraParams,
 ) -> OBBject:
-    """Example Data."""
+    """示例数据."""
     return await OBBject.from_query(Query(**locals()))
 ```
 
-Let's break it down:
+让我们分解一下：
 
-- `@router.command(...)` - this tells the OpenBB Platform that this is a command.
-- `model="Example"` - this is the name of the `Fetcher` dictionary key that you've defined in the `__init__.py` file of the `<your_package_name>/<your_module_name>` folder.
-- `cc: CommandContext` - this contains a set of user and system settings that is useful during the execution of the command - eg. api keys.
-- `provider_choices: ProviderChoices` - all the providers that implement the `Example` `Fetcher`.
-- `standard_params: StandardParams` - standardized parameters that are common to all providers that implement the `Example` `Fetcher`.
-- `extra_params: ExtraParams` - it contains the provider specific arguments that are not standardized.
+- `@router.command(...)` - 这告诉 OpenBB 平台这是一个命令。
+- `model="Example"` - 这是您在 `<your_package_name>/<your_module_name>` 文件夹的 `__init__.py` 文件中定义的 `Fetcher` 字典键的名称。
+- `cc: CommandContext` - 这包含一组用户和系统设置，在执行命令时非常有用 - 例如 api 密钥。
+- `provider_choices: ProviderChoices` - 实现 `Example` `Fetcher` 的所有提供商。
+- `standard_params: StandardParams` - 对所有实现 `Example` `Fetcher` 的提供商来说都是通用的标准参数。
+- `extra_params: ExtraParams` - 它包含特定于提供商的参数，这些参数没有标准化。
 
-You only need to change the `model` parameter to the name of the `Fetcher` dictionary key and everything else will be handled by the OpenBB Platform.
+您只需要将 `model` 参数更改为您定义的 `Fetcher` 字典键的名称，其他一切都将由 OpenBB 平台处理。
 
-### Architectural considerations
+### 架构考虑
 
-#### Important classes
+#### 重要类
 
-#### Import statements
+#### 导入语句
 
 ```python
 
-# The `Data` class
+# `Data` 类
 from openbb_core.provider.abstract.data import Data
 
-# The `QueryParams` class
+# `QueryParams` 类
 from openbb_core.provider.abstract.query_params import QueryParams
 
-# The `Fetcher` class
+# `Fetcher` 类
 from openbb_core.provider.abstract.fetcher import Fetcher
 
-# The `OBBject` class
+# `OBBject` 类
 from openbb_core.app.model.obbject import OBBject
 
-# The `Router` class
+# `Router` 类
 from openbb_core.app.router import Router
 
 ```
 
-#### The TET pattern
+#### TET 模式
 
-The TET pattern is a pattern that we use to build the `Fetcher` classes. It stands for **Transform, Extract, Transform**.
-As the OpenBB Platform has its own standardization framework and the data fetcher are a very important part of it, we need to ensure that the data is transformed and extracted in a consistent way, to help us do that, we came up with the **TET** pattern, which helps us build and ship faster as we have a clear structure on how to build the `Fetcher` classes.
+TET 模式是我们用来构建 `Fetcher` 类的模式。它代表 **转换，提取，转换**。
+由于 OpenBB 平台有自己的标准化框架，并且数据提取器是非常重要的一部分，我们需要确保数据以一致的方式进行转换和提取，为了帮助我们做到这一点，我们想出了 **TET** 模式，它帮助我们更快地构建和发布，因为我们在如何构建 `Fetcher` 类上有了清晰的结构。
 
-1. Transform - `transform_query(params: Dict[str, Any])`: transforms the query parameters. Given a `params` dictionary this method should return the transformed query parameters as a [`QueryParams`](openbb_platform/platform/provider/openbb_core/provider/abstract/query_params.py) child so that we can leverage the pydantic model schemas and validation into the next step. This might also be the place do perform some transformations on any given parameter, i.e., if you want to transform an empty date into a `datetime.now().date()`.
-2. Extract - `extract_data(query: ExampleQueryParams,credentials: Optional[Dict[str, str]],**kwargs: Any,) -> Dict`: makes the request to the API endpoint and returns the raw data. Given the transformed query parameters, the credentials and any other extra arguments, this method should return the raw data as a dictionary.
-3. Transform - `transform_data(query: ExampleQueryParams, data: Dict, **kwargs: Any) -> List[ExampleHistoricalData]`: transforms the raw data into the defined data model. Given the transformed query parameters (might be useful for some filtering), the raw data and any other extra arguments, this method should return the transformed data as a list of [`Data`](openbb_platform/platform/provider/openbb_core/provider/abstract/data.py) children.
+1. 转换 - `transform_query(params: Dict[str, Any])`：转换查询参数。给定一个 `params` 字典，这个方法应该返回转换后的查询参数作为 [`QueryParams`](openbb_platform/platform/provider/openbb_core/provider/abstract/query_params.py) 的子类，以便我们可以利用 pydantic 模型模式和验证进入下一步。这也可能是执行任何给定参数的转换的地方，例如，如果您想将空日期转换为 `datetime.now().date()`。
+2. 提取 - `extract_data(query: ExampleQueryParams,credentials: Optional[Dict[str, str]],**kwargs: Any,) -> Dict`：向 API 端点发出请求并返回原始数据。给定转换后的查询参数、凭据和任何其他额外参数，这个方法应该以字典形式返回原始数据。
+3. 转换 - `transform_data(query: ExampleQueryParams, data: Dict, **kwargs: Any) -> List[ExampleHistoricalData]`：将原始数据转换为定义的数据模型。给定转换后的查询参数（可能对某些过滤有用）、原始数据和任何其他额外参数，这个方法应该以 [`Data`](openbb_platform/platform/provider/openbb_core/provider/abstract/data.py) 的子类列表形式返回转换后的数据。
 
-#### Errors
+#### 错误
 
-To ensure a consistent error handling behavior our API relies on the convention below.
+为确保一致的错误处理行为，我们的 API 依赖于以下约定。
 
-| Status code | Exception | Detail | Description |
+| 状态码 | 异常 | 详情 | 描述 |
 | -------- | ------- | ------- | ------- |
-| 400 | `OpenBBError` or child of `OpenBBError` | Custom message. | Use this to explicitly raise custom exceptions, like `EmptyDataError`. |
-| 422 | `ValidationError` | `Pydantic` errors dict message. | Automatically raised to inform the user about query validation errors. ValidationErrors outside of the query are treated with status code 500 by default. |
-| 500 | Any exception not covered above, eg `ValueError`, `ZeroDivisionError` | Unexpected error. | Unexpected exceptions, most likely a bug. |
+| 400 | `OpenBBError` 或 `OpenBBError` 的子类 | 自定义消息。 | 使用此显式引发自定义异常，如 `EmptyDataError`。 |
+| 422 | `ValidationError` | `Pydantic` 错误字典消息。 | 自动引发以通知用户有关查询验证错误。查询之外的 ValidationError 默认使用状态码 500 处理。 |
+| 500 | 未在上面覆盖的任何异常，例如 `ValueError`、`ZeroDivisionError` | 意外错误。 | 意外异常，最有可能是一个 bug。 |
 
-#### Data processing commands
+#### 数据处理命令
 
-The data processing commands are commands that are used to process the data that may or may not come from the OpenBB Platform.
-In order to create a data processing framework general enough to be used by any extension, we've created a special abstract class called [`Data`](/openbb_platform/platform/provider/openbb_core/provider/abstract/data.py) which **all** standardized (and consequently its child classes) will inherit from.
+数据处理命令是用于处理可能来自或不一定来自 OpenBB 平台的数据的命令。
+为了创建一个足够通用以供任何扩展使用的数据处理框架，我们创建了一个名为 [`Data`](/openbb_platform/platform/provider/openbb_core/provider/abstract/data.py) 的特殊抽象类，所有标准化的（因此其子类）都将继承自它。
 
-Why is this important?
-So that we can ensure that all `OBBject.results` will share a common ground on which we can apply out-of-the-box data processing commands, such as the `ta`, `qa` or the `econometrics` menus.
+为什么这么重要？
+这样我们就可以确保所有 `OBBject.results` 将在我们应用现成的数据处理命令时，如 `ta`、`qa` 或 `econometrics` 菜单，有一个共同的基础。
 
-But what's really the `Data` class?
-It's a pydantic model that inherits from the `BaseModel` and can contain any given number of extra fields. In practice, it looks as follows:
+但 `Data` 类到底是什么？
+它是一个从 `BaseModel` 继承的 pydantic 模型，并且可以包含任何数量的额外字段。实际上，它看起来像这样：
 
 ```python
 
@@ -569,12 +568,12 @@ AVEquityHistoricalData(date=2023-11-03 00:00:00, open=174.24, high=176.82, low=1
 
 ```
 
-> The `AVEquityHistoricalData` class, is a child class of the `Data` class.
+> `AVEquityHistoricalData` 类是 `Data` 类的子类。
 
-Note how we've indexed to get only the first element of the `results` list (which represents a single row, if we want to think about it as a tabular output). This simply means that we are getting a `List` of `AVEquityHistoricalData` from the `obb.equity.price.historical` command. Or, we can also say that that's equivalent to `List[Data]`!
+注意我们是如何通过索引来获取 `results` 列表的第一个元素的（如果我们想将其视为表格输出，则代表单个行）。这只是意味着我们从 `obb.equity.price.historical` 命令中获取 `AVEquityHistoricalData` 的 `List`。或者，我们也可以说这等同于 `List[Data]`！
 
-This is very powerful, as we can now apply any data processing command to the `results` list, without worrying about the underlying data structure.
-That's why, on data processing commands (such as the `ta` menu) we will find on its function signature the following:
+这非常强大，因为现在我们可以将任何数据处理命令应用于 `results` 列表，而不必担心底层数据结构。
+这就是为什么，在数据处理命令（如 `ta` 菜单）上，我们会在其函数签名中找到以下内容：
 
 ```python
 
@@ -592,10 +591,10 @@ def ema(
 
 ```
 
-> Note that `data` can actually be a different type, but we'll focus on the `List[Data]` case for now.
+> 注意 `data` 实际上可以是不同的类型，但我们现在将专注于 `List[Data]` 的情况。
 
-Does that mean that I can only use the data processing commands if I instantiate a class that inherits from `Data`?
-Not at all! Consider the following example:
+这是否意味着我只能在使用 `Data` 的子类实例化的情况下使用数据处理命令？
+一点也不！考虑以下示例：
 
 ```python
 
@@ -608,30 +607,30 @@ Data(open=1, high=2, low=3, close=4, volume=5, date=2020-01-01)
 
 ```
 
-This means that the `Data` class is cleaver enough to understand that you are passing a dictionary and it will try to validate it for you.
-In other words, if you're using data that doesn't come from the OpenBBPlatform, you only need to ensure it's parsable by the `Data` class and you'll be able to use the data processing commands.
-In other words, imagine you have a dataframe that you want to use with the `ta` menu. You can do the following:
+这意味着 `Data` 类足够智能，可以理解您正在传递一个字典，并且它会尝试为您验证它。
+换句话说，如果您使用的是来自 OpenBB 平台的数据，您只需要确保它可以通过 `Data` 类解析，您就可以使用数据处理命令。
+换句话说，想象一下您有一个 dataframe，您想用它与 `ta` 菜单一起使用。您可以这样做：
 
 ```python
 
 >>> res = obb.equity.price.historical("AAPL")
->>> my_df = res.to_dataframe() # yes, you can convert your OBBject.results into a dataframe out-of-the-box!
+>>> my_df = res.to_dataframe() # 是的，您可以将 OBBject.results 转换为 dataframe！
 >>> my_records = df.to_dict(orient="records")
 
 >>> obb.ta.ema(data=my_record)
 
 OBBject
 
-results: [{'close': 77.62, 'close_EMA_50': None}, {'close': 80.25, 'close_EMA_50': ... # this is a `List[Data]` yet again
+results: [{'close': 77.62, 'close_EMA_50': None}, {'close': 80.25, 'close_EMA_50': ... # 这又是 `List[Data]`
 
 ```
 
-> Note that that for this example we've used the `OBBject.to_dataframe()` method to have an example dataframe, but it could be any other dataframe that you have.
+> 注意，为了这个示例，我们使用了 `OBBject.to_dataframe()` 方法来有一个示例 dataframe，但它可以是您拥有的任何其他 dataframe。
 
-##### Python Interface
+##### Python 接口
 
-When using the OpenBB Platform on a Python Interface, docstrings and type hints are your best friends as it provides plenty of context on how to use the commands.
-Looking at an example on the `ta` menu:
+当在 Python 接口上使用 OpenBB 平台时，文档字符串和类型提示是您最好的朋友，因为它提供了关于如何使用命令的大量上下文。
+看一个 `ta` 菜单上的例子：
 
 ```python
 
@@ -649,13 +648,13 @@ def ema(
 
 ```
 
-We can easily deduct that the `ema` command accept data in the formats of `List[Data]` or `pandas.DataFrame`.
+我们可以很容易地推断出 `ema` 命令接受 `List[Data]` 或 `pandas.DataFrame` 格式的数据。
 
-> Note that other types might be added in the future.
+> 注意，将来可能会添加其他类型。
 
-##### API Interface
+##### API 接口
 
-When using the OpenBB Platform on a API Interface, the types are a bit more limited than on the Python one, as, for example, we can't use `pandas.DataFrame` as a type. However the same principles apply for what `Data` means, i.e., any given data processing command, which are characterized as POST endpoints on the API, will accept data as a list of records on the **request body**, i.e.:
+当在 API 接口上使用 OpenBB 平台时，类型比 Python 的要有限一些，例如，我们不能使用 `pandas.DataFrame` 作为类型。然而，相同的原则适用于 `Data` 的含义，即，任何给定的数据处理命令，它们被标记为 API 上的 POST 端点，将接受数据作为请求正文中的记录列表，即：
 
 ```json
 
@@ -672,120 +671,119 @@ When using the OpenBB Platform on a API Interface, the types are a bit more limi
 
 ```
 
-## Contributor Guidelines
+## 贡献者指南
 
-The Contributor Guidelines are intended to be a continuation of the [Developer Guidelines](#developer-guidelines). They are not a replacement, but rather an expansion, focusing specifically on those who seek to directly enhance the OpenBB Platform's codebase. It's crucial for Contributors to be familiar with both sets of guidelines to ensure a harmonious and productive engagement with the OpenBB Platform.
+贡献者指南旨在作为 [开发者指南](#developer-guidelines) 的延续。它们不是替代品，而是扩展，专门针对那些寻求直接增强 OpenBB 平台代码库的人。贡献者熟悉这两组指南对于确保与 OpenBB 平台的和谐且富有成效的参与至关重要。
 
-There are many ways to contribute to the OpenBB Platform. You can add a [new data point](#getting_started-add-a-new-data-point), add a [new command](#openbb-platform-commands), add a [new visualization](/openbb_platform/extensions/charting/README.md), add a [new extension](#getting_started-build-openbb-extensions), fix a bug, improve or create documentation, etc.
+有很多方法可以为 OpenBB 平台做出贡献。您可以添加 [新的数据点](#getting_started-add-a-new-data-point)，添加 [新的命令](#openbb-platform-commands)，添加 [新的可视化](/openbb_platform/extensions/charting/README.md)，添加 [新的扩展](#getting_started-build-openbb-extensions)，修复错误，改进或创建文档等。
 
-### Expectations for Contributors
+### 对贡献者的期望
 
-1. Use Cases:
-   - Ensure that your contributions directly enhance the OpenBB Platform's functionality or extension ecosystem.
+1. 使用案例：
+   - 确保您的贡献直接增强了 OpenBB 平台的功能或扩展生态系统。
 
-2. Documentation:
-   - All code contributions should come with relevant documentation, including the purpose of the contribution, how it works, and any changes it makes to existing functionalities.
-   - Update any existing documentation if your contribution alters the behavior of the OpenBB Platform.
+2. 文档：
+   - 所有代码贡献都应附带相关文档，包括贡献的目的、工作原理以及对现有功能所做的任何更改。
+   - 如果您的贡献改变了 OpenBB 平台的行为，请更新任何现有文档。
 
-3. Code Quality:
-   - Your code should adhere strictly to the OpenBB Platform's coding standards and conventions.
-   - Ensure clarity, maintainability, and proper organization in your code.
+3. 代码质量：
+   - 您的代码应严格遵守 OpenBB 平台的编码标准和约定。
+   - 确保您的代码清晰、可维护且组织得当。
 
-4. Testing:
-   - All contributions must be thoroughly tested to avoid introducing bugs to the OpenBB Platform.
-   - Contributions should include relevant automated tests (unit and integration), and any new feature should come with its test cases.
+4. 测试：
+   - 所有贡献都必须经过彻底测试，以避免向 OpenBB 平台引入错误。
+   - 贡献应包括相关的自动化测试（单元和集成），任何新功能都应附带其测试用例。
 
-5. Performance:
-   - Your contributions should be optimized for performance and should not degrade the overall efficiency of the OpenBB Platform.
-   - Address any potential bottlenecks and ensure scalability.
+5. 性能：
+   - 您的贡献应针对性能进行优化，不应降低 OpenBB 平台的整体效率。
+   - 解决任何潜在的瓶颈，并确保可扩展性。
 
-6. Collaboration:
-   - Engage actively with the OpenBB development team to ensure that your contributions align with the platform's roadmap and standards.
-   - Welcome feedback and be open to making revisions based on reviews and suggestions from the community.
+6. 协作：
+   - 积极与 OpenBB 开发团队合作，确保您的贡献与平台的发展路线图和标准一致。
+   - 欢迎反馈，并对社区的审查和建议持开放态度，根据需要进行修订。
 
-### Quality Assurance
+### 质量保证
 
-We are strong believers in the Quality Assurance (QA) process and we want to make sure that all the extensions that are added to the OpenBB Platform are of high quality. To ensure this, we have a set of QA tools that you can use to test your extension.
+我们坚信质量保证 (QA) 流程，并希望确保添加到 OpenBB 平台的所有扩展都是高质量的。为确保这一点，我们有一套 QA 工具可供您使用，以测试您的扩展。
 
-Primarily, we have tools that semi-automate the creation of unit and integration tests.
+首先，我们拥有半自动化创建单元和集成测试的工具。
 
-> The QA tools are still in development and we are constantly improving them.
+> QA 工具仍在开发中，我们正在不断改进它们。
 
-#### Unit tests
+#### 单元测试
 
-Each `Fetcher` comes equipped with a `test` method that will ensure that it is implemented correctly and that it is returning the expected data. It also ensures that all types are correct and that the data is valid.
+每个 `Fetcher` 都配备了一个 `test` 方法，确保它正确实现并且返回预期的数据。它还确保所有类型都是正确的，并且数据是有效的。
 
-To create unit tests for your Fetchers, you can run the following command:
+要为您的 Fetchers 创建单元测试，您可以运行以下命令：
 
 ```bash
 python openbb_platform/providers/tests/utils/unit_tests_generator.py
 ```
 
-> Note that you should be running this file from the root of the repository.
-> Note that the `tests` folder must exist in order to generate the tests.
+> 注意，您应该从存储库的根目录运行此文件。
+> 请注意，必须存在 `tests` 文件夹才能生成测试。
 
-The automatic unit test generation will add unit tests for all the fetchers available in a given provider.
+自动单元测试生成将为给定提供商中所有可用的 fetchers 添加单元测试。
 
-To record the unit tests, you can run the following command:
+要录制单元测试，您可以运行以下命令：
 
 ```bash
 pytest <path_to_the_unit_test_file> --record=all
 ```
 
-> Note that sometimes manual intervention is needed. For example, adjusting out-of-top level imports or adding specific arguments for a given fetcher.
+> 注意，有时可能需要手动干预。例如，调整顶级导入之外的导入或为特定 fetcher 添加特定参数。
 
-#### Integration tests
+#### 集成测试
 
-The integration tests are a bit more complex than the unit tests, as we want to test both the Python interface and the API interface. For this, we have two scripts that will help you generate the integration tests.
+集成测试比单元测试更复杂，因为我们想要测试 Python 接口和 API 接口。为此，我们有两个脚本可以帮助您生成集成测试。
 
-To generate the integration tests for the Python interface, you can run the following command:
+要为 Python 接口生成集成测试，您可以运行以下命令：
 
 ```bash
 python openbb_platform/extensions/tests/utils/integration_tests_generator.py
 ```
 
-To generate the integration tests for the API interface, you can run the following command:
+要为 API 接口生成集成测试，您可以运行以下命令：
 
 ```bash
 python openbb_platform/extensions/tests/utils/integration_tests_api_generator.py
 ```
 
-When testing the API interface, you'll need to run the OpenBB Platform locally before running the tests. To do so, you can run the following command:
+当测试 API 接口时，您需要在运行测试之前在本地运行 OpenBB 平台。为此，您可以运行以下命令：
 
 ```bash
 uvicorn openbb_platform.core.openbb_core.api.rest_api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-These automated tests are a great way to reduce the amount of code you need to write, but they are not a replacement for manual testing and might require tweaking. That's why we have unit tests that test the generated integration tests to ensure they cover all providers and parameters.
+这些自动化测试是减少您需要编写的代码量的好方法，但它们不是手动测试的替代品，可能需要调整。这就是为什么我们有单元测试来测试生成的集成测试，以确保它们涵盖所有提供商和参数。
 
-To run the tests we can do:
+要运行测试，我们可以执行以下操作：
 
-- Unit tests only:
+- 仅单元测试：
 
 ```bash
 pytest openbb_platform -m "not integration"
 ```
 
-- Integration tests only:
+- 仅集成测试：
 
 ```bash
 pytest openbb_platform -m integration
 ```
 
-- Both integration and unit tests:
+- 集成和单元测试：
 
 ```bash
 pytest openbb_platform
 ```
 
-#### Import time
+#### 导入时间
 
-We aim to have a short import time for the package. To measure that we use `tuna`.
+我们的目标是使包的导入时间尽可能短。为了衡量这一点，我们使用 `tuna`。
 
 - <https://pypi.org/project/tuna/>
 
-To visualize the import time breakdown by module and find potential bottlenecks, run the
-following commands from `openbb_platform` directory:
+要通过模块可视化导入时间分解并找到潜在的瓶颈，请从 `openbb_platform` 目录运行以下命令：
 
 ```bash
 pip install tuna
@@ -793,103 +791,100 @@ python -X importtime openbb/__init__.py 2> import.log
 tuna import.log
 ```
 
-### Sharing your extension
+### 分享您的扩展
 
-We encourage you to share your extension with the community. You can do that by publishing it to PyPI.
+我们鼓励您与社区分享您的扩展。您可以通过将其发布到 PyPI 来实现。
 
-#### Publish your extension to PyPI
+#### 将您的扩展发布到 PyPI
 
-To publish your extension to PyPI, you'll need to have a PyPI account and a PyPI API token.
+要将您的扩展发布到 PyPI，您需要拥有 PyPI 帐户和 PyPI API 令牌。
 
-##### Setup
+##### 设置
 
-Create an account and get an API token from <https://pypi.org/manage/account/token/>
-Store the token with
+创建帐户并从 <https://pypi.org/manage/account/token/> 获取 API 令牌。
+使用以下命令存储令牌：
 
 ```bash
 poetry config pypi-token.pypi pypi-YYYYYYYY
 ```
 
-##### Release
+##### 版本发布
 
-`cd` into the directory where your extension `pyproject.toml` lives and make sure that the `pyproject.toml` specifies the version tag you want to release and run.
+`cd` 进入包含您的扩展 `pyproject.toml` 的目录，并确保 `pyproject.toml` 指定了您要发布的版本标签，然后运行。
 
 ```bash
 poetry build
 ```
 
-This will create a `/dist` folder in the directory, which will contain the `.whl` and `tar.gz` files matching the version to release.
+这将在目录中创建一个 `/dist` 文件夹，其中包含与要发布的版本匹配的 `.whl` 和 `tar.gz` 文件。
 
-If you want to test your package locally you can do it with
+如果您想本地测试您的包，可以这样做：
 
 ```bash
 pip install dist/openbb_[FILE_NAME].whl
 ```
 
-##### Publish
+##### 发布
 
-To publish your package to PyPI run:
+要将您的包发布到 PyPI，请运行：
 
 ```bash
 poetry publish
 ```
 
-Now, you can pip install your package from PyPI with:
+现在，您可以使用以下命令从 PyPI pip 安装您的包：
 
 ```bash
 pip install openbb-some_ext
 ```
 
-### Manage extensions
+### 管理扩展
 
-To install an extension hosted on PyPI, use the `pip install <extension>` command.
+要安装托管在 PyPI 上的扩展，请使用 `pip install <extension>` 命令。
 
-To install an extension that is developed locally, ensure that it contains a `pyproject.toml` file and then use the `pip install <extension>` command.
+要安装本地开发的扩展，请确保它包含 `pyproject.toml` 文件，然后使用 `pip install <extension>` 命令。
 
-> To install the extension in editable mode using pip, add the `-e` argument.
+> 要使用 pip 安装可编辑模式的扩展，请添加 `-e` 参数。
 
-Alternatively, for local extensions, you can add this line in the `LOCAL_DEPS` variable in `dev_install.py` file:
+或者，对于本地扩展，您可以在 `dev_install.py` 文件的 `LOCAL_DEPS` 变量中添加以下行：
 
 ```toml
-# If this is a community dependency, add this under "Community dependencies",
-# with additional argument optional = true
+# 如果这是社区依赖项，请在 "Community dependencies" 下添加此内容，
+# 并使用额外的参数 optional = true
 openbb-extension = { path = "<relative-path-to-the-extension>", develop = true }
 ```
 
-Now you can use the `python dev_install.py [-e]` command to install the local extension.
+现在，您可以使用 `python dev_install.py [-e]` 命令安装本地扩展。
 
-#### Add an extension as a dependency
+#### 添加扩展作为依赖项
 
-To add the `openbb-qa` extension as a dependency, you'll need to add it to the `pyproject.toml` file:
+要将 `openbb-qa` 扩展添加为依赖项，您需要将其添加到 `pyproject.toml` 文件中：
 
 ```toml
 [tool.poetry.dependencies]
 openbb-qa = "^0.0.0a2"
 ```
 
-Then you can follow the same process as above to install the extension.
+然后，您可以按照上述相同的过程安装扩展。
 
-### Write code and commit
+### 编写代码并提交
 
-#### How to create a PR?
+#### 如何创建 PR？
 
-To create a PR to the OpenBB Platform, you'll need to fork the repository and create a new branch.
+要为 OpenBB 平台创建 PR，您需要 fork 存储库并创建一个新分支。
 
-1. Create your Feature Branch, e.g. `git checkout -b feature/AmazingFeature`
-2. Check the files you have touched using `git status`
-3. Stage the files you want to commit, e.g.
-   `git add openbb_platform/platform/core/openbb_core/app/constants.py`.
-   Note: **DON'T** add any files with personal information.
-4. Write a concise commit message under 50 characters, e.g. `git commit -m "meaningful commit message"`. If your PR
-   solves an issue raised by a user, you may specify such an issue by adding #ISSUE_NUMBER to the commit message, so that
-   these get linked. Note: If you installed pre-commit hooks and one of the formatters re-formats your code, you'll need
-   to go back to step 3 to add these.
+1. 创建您的功能分支，例如 `git checkout -b feature/AmazingFeature`
+2. 使用 `git status` 检查您触及的文件。
+3. 将您想要提交的文件暂存，例如：
+   `git add openbb_platform/platform/core/openbb_core/app/constants.py`。
+   注意：**不要**添加任何包含个人信息的文件。
+4. 编写一个简洁的提交消息，少于 50 个字符，例如 `git commit -m "有意义的提交消息"`。如果您的 PR 解决了用户提出的问题，您可以通过在提交消息中添加 #ISSUE_NUMBER 来指定该问题，以便这些被链接起来。注意：如果您安装了预提交钩子，并且其中一个格式化程序重新格式化了您的代码，您将需要返回到第 3 步来添加这些。
 
-##### Branch Naming Conventions
+##### 分支命名约定
 
-The accepted branch naming conventions are:
+接受的分支命名约定是：
 
 - `feature/feature-name`
 - `hotfix/hotfix-name`
 
-These branches can only have PRs pointing to the `develop` branch.
+这些分支只能指向 `develop` 分支的 PR。
