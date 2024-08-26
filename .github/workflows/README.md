@@ -1,100 +1,95 @@
-# OpenBB Workflows
+# OpenBB 工作流程
 
-This directory contains the workflows for the OpenBB 🦋 Project. The workflows are:
+这个目录包含了 OpenBB 🦋 项目的流程。工作流程包括：
 
-## 📑 Deploy to GitHub Pages
+## 📑 部署到 GitHub Pages
 
-This GitHub Actions workflow is responsible for building the documentation and deploying it to GitHub Pages. This workflow is triggered when a new change is pushed to the `main` or `release` branch of the repository, and the documentation is published to GitHub Pages.
+这个 GitHub Actions 工作流程负责构建文档并将其部署到 GitHub Pages。当仓库的 `main` 或 `release` 分支有新变更被推送时，此工作流程会被触发，并将文档发布到 GitHub Pages。
 
-## Branch Name Check
+## 分支名称检查
 
-Objective: To check if pull request branch names follow the GitFlow naming convention before merging.
+目标：在合并前检查拉取请求分支名称是否遵循 GitFlow 命名规范。
 
-Triggered by: A pull request event where the target branch is either develop or main.
+触发条件：目标分支为 develop 或 main 的拉取请求事件。
 
-Branches checked: The source branch of a pull request and the target branch of a pull request.
+检查的分支：拉取请求的源分支和目标分支。
 
-Steps:
+步骤：
+1. 提取分支名称：使用 jq 工具，从拉取请求事件中提取源分支和目标分支名称。然后将分支名称存储在环境变量中，并打印为输出。
+2. 显示源分支和目标分支的输出结果：将源分支和目标分支名称打印到控制台。
+3. 检查 develop PR 的分支名称：如果目标分支是 develop，则检查源分支是否符合 GitFlow 命名规范的正则表达式。如果分支名称无效，将消息打印到控制台，并以状态码 1 退出工作流程。
+4. 检查 main PR 的分支名称：如果目标分支是 main，则检查源分支是否为热修复或发布分支。如果分支名称无效，将消息打印到控制台，并以状态码 1 退出工作流程。
 
-1. Extract branch names: Using the jq tool, the source and target branch names are extracted from the pull request event. The branch names are then stored in environment variables and printed as output.
+注意：GitFlow 分支命名规范如下：
 
-2. Show Output result for source-branch and target-branch: The source and target branch names are printed to the console.
+- 功能分支：feature/<feature-name>
+- 热修复分支：hotfix/<hotfix-name>
+- 发布分支：release/<major.minor.patch>(rc<number>)
 
-3. Check branch name for develop PRs: If the target branch is develop, then the source branch is checked against a regular expression to ensure that it follows the GitFlow naming convention. If the branch name is invalid, a message is printed to the console and the workflow exits with a status code of 1.
+## 部署到 PyPI - 夜间版
 
-4. Check branch name for main PRs: If the target branch is main, then the source branch is checked against a regular expression to ensure that it is either a hotfix or a release branch. If the branch name is invalid, a message is printed to the console and the workflow exits with a status code of 1.
+此工作流程用于将 OpenBB 平台 CLI 的最新版本发布到 PyPI。工作流程由 GitHub Action 计划事件在 UTC+0 每天触发。
 
-Note: The GitFlow naming convention for branches is as follows:
+它首先通过将 `pyproject.toml` 文件更新为预设的版本字符串 `<currentVersion>.dev<date>`，其中 `<date>` 表示当前日期的 8 位数字。
 
-- Feature branches: feature/<feature-name>
-- Hotfix branches: hotfix/<hotfix-name>
-- Release branches: release/<major.minor.patch>(rc<number>)
+然后，代码安装 `pypa/build` 并使用 `python -m build` 在 `dist/` 目录中创建二进制轮和源代码 tarball。
 
-## Deploy to PyPI - Nightly
+最后，它使用 PyPA 特定的动作 `gh-action-pypi-publish` 将创建的文件发布到 PyPI。
 
-This workflow is used to publish the latest version of the OpenBB Platform CLI to PyPI. The workflow is triggered at UTC+0 daily by the GitHub Action schedule event.
+## 部署 OpenBB 平台到测试 PyPI
 
-It does this by first updating the `pyproject.toml` file with a pre-determined version string of the form `<currentVersion>.dev<date>`, where `<date>` represents the current day's date as a 8 digit number.
+GitHub Action 代码 `Deploy to PyPI` 用于将 Python 项目部署到 PyPI（Python Package Index）和 TestPyPI，TestPyPI 是一个用于测试的单独的包索引。代码在两个事件上触发：
 
-Then, the code installs `pypa/build` and uses `python -m build` to create a binary wheel and a source tarball in the `dist/` directory.
+1. 推送事件：每当有推送到 `release/*` 和 `main` 分支时，代码就会被触发。
+2. 工作流程调度事件：代码可以通过工作流程调度事件手动触发。
 
-Finally, it uses the PyPA specific action `gh-action-pypi-publish` to publish the created files to PyPI.
+代码将并发设置为 `group`，并将选项 `cancel-in-progress` 设置为 `true`，以确保在触发另一个作业时取消同一 `group` 中正在运行的作业。
 
-## Deploy the OpenBB Platform to Test PyPI
+代码包含两个作业，`deploy-test-pypi` 和 `deploy-pypi`，这两个作业具有相同但略有变化的步骤。
 
-The Github Action code `Deploy to PyPI` is used to deploy a Python project to PyPI (Python Package Index) and TestPyPI, which is a separate package index for testing purposes. The code is triggered on two events:
+`deploy-test-pypi` 作业仅在推送的分支以 `refs/heads/release/` 开头时触发。此作业设置 Python 环境，使用 `pip` 安装 `build` 包，使用 `build` 构建二进制轮和源代码 tarball，并最终使用 `pypa/gh-action-pypi-publish@release/v1` GitHub Action 将分发到 TestPyPI。访问 TestPyPI 的 `password` 存储为名为 `TEST_PYPI_API_TOKEN` 的秘密。
 
-1. Push event: The code is triggered whenever there is a push to the `release/*` and `main` branches.
+类似地，`deploy-pypi` 作业仅在推送的分支以 `refs/heads/main` 开头时触发。此作业遵循与 `deploy-test-pypi` 相同的步骤，但将分发到 PyPI 而不是 TestPyPI。访问 PyPI 的 `password` 存储为名为 `PYPI_API_TOKEN` 的秘密。
 
-2. Workflow dispatch event: The code can be manually triggered by the workflow dispatch event.
+注意：代码使用 `pypa/build` 包构建二进制轮和源代码 tarball，并使用 `pypa/gh-action-pypi-publish@release/v1` GitHub Action 将分发到 PyPI 和 TestPyPI。
 
-The code sets the concurrency to the `group` and the option `cancel-in-progress` is set to `true` to ensure that the running jobs in the same `group` are cancelled in case another job is triggered.
+## 起草发布
 
-The code contains two jobs, `deploy-test-pypi` and `deploy-pypi`, both of which have the same steps with slight variations.
+这个 GitHub Actions 工作流程旨在自动生成和更新 GitHub 仓库中的草稿发布。工作流程在手动调度时触发，允许你控制草稿发布的更新时间。
 
-The `deploy-test-pypi` job is triggered only if the pushed branch starts with `refs/heads/release/`. This job sets up the Python environment, installs the `build` package using `pip`, builds binary wheel and source tarball using `build`, and finally, publishes the distributions to TestPyPI using the `pypa/gh-action-pypi-publish@release/v1` Github Action. The `password` to access TestPyPI is stored as a secret named `TEST_PYPI_API_TOKEN`.
+## 🧹 通用 Linting
 
-Similarly, the `deploy-pypi` job is triggered only if the pushed branch starts with `refs/heads/main`. This job follows the same steps as `deploy-test-pypi`, but the distributions are published to PyPI instead of TestPyPI. The `password` to access PyPI is stored as a secret named `PYPI_API_TOKEN`.
+这个 GitHub Actions 工作流程负责在代码库上运行 linting 检查。此工作流程在 `opened`、`synchronize` 和 `edited` 等拉取请求事件上触发，以及在以 `feature/`、`hotfix/` 或 `release/` 开头的分支上的推送事件。工作流程还设置了多个环境变量，并使用 Github Actions 缓存来提高性能。
 
-Note: The code uses the `pypa/build` package for building the binary wheel and source tarball, and the `pypa/gh-action-pypi-publish@release/v1` Github Action for publishing the distributions to PyPI and TestPyPI.
+它由两个作业组成：`code-linting` 和 `markdown-link-check`。
 
-## Draft release
+第一个作业 `code-linting` 在 Ubuntu 机器上运行，并对仓库中的代码执行多个 linting 任务，包括：
 
-This GitHub Actions workflow is designed to automatically generate and update draft releases in a GitHub repository. The workflow is triggered when it is manually dispatched, allowing you to control when the draft releases are updated.
+- 从仓库检出代码
+- 设置 Python 3.9
+- 安装多个必要的 Python 包以进行 linting 任务
+- 运行 `bandit` 检查安全漏洞
+- 运行 `black` 检查代码格式化
+- 运行 `codespell` 检查注释、字符串和小变量名称的拼写
+- 运行 `ruff` 检查 Python 的使用
+- 运行 `pylint` 对代码进行静态分析
+- 运行 `mypy` 检查类型注释
+- 运行 `pydocstyle` 检查文档字符串
 
-## 🧹 General Linting
+第二个作业 `markdown-link-check` 在 Ubuntu 机器上运行，并对仓库中的 markdown 文件进行 linting。它使用 Docker 容器 `avtodev/markdown-lint` 执行 linting。
 
-This GitHub Actions workflow is responsible for running linting checks on the codebase. This workflow is triggered on pull request events such as `opened`, `synchronize`, and `edited`, and push events on branches with names that start with `feature/`, `hotfix/`, or `release/`. The workflow also sets a number of environment variables and uses Github Actions caching to improve performance.
+## 🏷️ 拉取请求标签
 
-It consists of two jobs: `code-linting` and `markdown-link-check`.
+自动标记拉取请求。
 
-The first job, `code-linting`, runs on an Ubuntu machine and performs several linting tasks on the code in the repository, including:
+## 🚉 集成测试平台（API）
 
-- Checking out the code from the repository
-- Setting up Python 3.9
-- Installing a number of Python packages necessary for the linting tasks
-- Running `bandit` to check for security vulnerabilities
-- Running `black` to check the code formatting
-- Running `codespell` to check the spelling of comments, strings, and variable names
-- Running `ruff` to check the use of Python
-- Running `pylint` to perform static analysis of the code
-- Running `mypy` to check the type annotations
-- Running `pydocstyle` to check the docstrings
+运行 `openbb_platform` API 集成测试，
 
-The second job, `markdown-link-check`, runs on an Ubuntu machine and performs linting of the markdown files in the repository. It uses a Docker container `avtodev/markdown-lint` to perform the linting.
+## 🖥️ CLI 单元测试
 
-## 🏷️ Pull Request Labels
+运行 `cli` 目录单元测试。
 
-Automatic labelling of pull requests.
+## 🚉 平台单元测试
 
-## 🚉 Integration test Platform (API)
-
-Run `openbb_platform` API integration tests,
-
-## 🖥️ Unit test CLI
-
-Run `cli` directory unit tests.
-
-## 🚉 Unit test Platform
-
-Run `openbb_platform` directory unit tests - providers, extensions, etc.
+运行 `openbb_platform` 目录单元测试 - 提供商、扩展等。
